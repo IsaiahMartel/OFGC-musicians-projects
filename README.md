@@ -1,1 +1,1 @@
-# OFGC-musicians--projects
+# OFGC-musicians-projects
