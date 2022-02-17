@@ -56,7 +56,8 @@
                 <ng-container *ngFor="let essay of scheduleArray">
 
 
-                    <ion-slide *ngIf="essay.typeschedules.nameType=='Ensayo AM' || essay.typeschedules.nameType=='Ensayo PM' || essay.typeschedules.nameType=='Ensayo General'">
+                    <ion-slide
+                        *ngIf="essay.typeschedules.nameType=='Ensayo AM' || essay.typeschedules.nameType=='Ensayo PM' || essay.typeschedules.nameType=='Ensayo General'">
                         <ion-card class=" essay-card " routerLink="/tabs/calendar/{{essay.projects.id}} ">
                             <ion-card-header>
                                 <ion-card-title>{{essay.projects.nameProject}}</ion-card-title>
