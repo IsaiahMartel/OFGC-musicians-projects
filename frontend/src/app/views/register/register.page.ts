@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/models/user/user';
 import { Storage } from '@ionic/storage';
-import { ɵangular_packages_platform_browser_platform_browser_d } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { Validators, FormControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -18,7 +17,7 @@ import { Validators, FormControl, FormBuilder, FormGroup, ReactiveFormsModule } 
 export class RegisterPage implements OnInit {
   registerForm: FormGroup;
   passwordNotMatch: boolean;
-  private errors : String = null;
+  private errors: String = null;
   constructor(private router: Router, private authService: AuthService, private storage: Storage, private alertController: AlertController, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -52,78 +51,78 @@ export class RegisterPage implements OnInit {
 
     let password = formGroup.get('password').value;
     let confirmPassword = formGroup.get('confirmPassword').value;
-    
-    
-    if (confirmPassword != password ) {
-     
-      
-
-      formGroup.controls['confirmPassword'].setErrors( { 'incorrect': true });
 
 
-    }else{
+    if (confirmPassword != password) {
+
+
+
+      formGroup.controls['confirmPassword'].setErrors({ 'incorrect': true });
+
+
+    } else {
       formGroup.controls['confirmPassword'].setErrors(null);
     }
   }
 
 
 
-    // static passwordsMatch(cg: FormGroup): {[err: string]: any} {
-    //   let pwd1 = cg.get('pwd1');
-    //   let pwd2 = cg.get('pwd2');
-    //   let rv: {[error: string]: any} = {};
-    //   if ((pwd1.touched || pwd2.touched) && pwd1.value !== pwd2.value) {
-    //     rv['passwordMismatch'] = true;
-    //   }
-    //   return rv;
-    // }
+  // static passwordsMatch(cg: FormGroup): {[err: string]: any} {
+  //   let pwd1 = cg.get('pwd1');
+  //   let pwd2 = cg.get('pwd2');
+  //   let rv: {[error: string]: any} = {};
+  //   if ((pwd1.touched || pwd2.touched) && pwd1.value !== pwd2.value) {
+  //     rv['passwordMismatch'] = true;
+  //   }
+  //   return rv;
+  // }
 
 
-    register() {
-      console.log(this.registerForm.value.email);
-      let user: User = {
-        id: null,
-        email: this.registerForm.value.email,
-        password: this.registerForm.value.password,
-        name: this.registerForm.value.name,
-        isAdmin: false
-      };
+  register() {
+    console.log(this.registerForm.value.email);
+    let user: User = {
+      id: null,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+      name: this.registerForm.value.name,
+      isAdmin: false
+    };
 
 
 
-      this.authService.register(user).subscribe(
-        (res) => {
-          console.log(res);
-          if (res.user) {
+    this.authService.register(user).subscribe(
+      (res) => {
+        console.log(res);
+        if (res.user) {
 
-            //  this.storage.set("token", res.access_token);
-          }
-          this.router.navigateByUrl('home');
-          this.registerForm.reset();
-        },
-        (error) => {
-          let errorJSON= JSON.parse(error.error)
-          let errorMessage = ""
-          Object.values(errorJSON).forEach(element => errorMessage+=element+ "\n");
-          console.log(errorMessage);
-          
-         this.presentAlert(errorMessage);
-        });
+          //  this.storage.set("token", res.access_token);
+        }
+        this.router.navigateByUrl('home');
+        this.registerForm.reset();
+      },
+      (error) => {
+        let errorJSON = JSON.parse(error.error)
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+        console.log(errorMessage);
 
-    }
-
-  async presentAlert(message: string) {
-      const alert = await this.alertController.create({
-        cssClass: 'my-custom-class',
-        header: 'Error',
-        subHeader: message,
-        message: 'Inténtalo de nuevo.',
-        buttons: ['OK']
+        this.presentAlert(errorMessage);
       });
 
-      await alert.present();
-    }
   }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      subHeader: message,
+      message: 'Inténtalo de nuevo.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+}
 
 
 

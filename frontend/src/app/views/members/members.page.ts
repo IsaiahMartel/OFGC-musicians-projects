@@ -4,6 +4,7 @@ import { DirectorProjects } from '../../models/director-projects';
 import { DirectorProjectsService } from '../../services/director-projects.service';
 import { SoloistProjects } from '../../models/soloist-projects';
 import { SoloistProjectsService } from '../../services/soloists-projects/soloist-projects.service';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -20,8 +21,11 @@ export class MembersPage implements OnInit {
 
 
 
-  constructor(private router: Router, private directorProjectService: DirectorProjectsService, private activatedRoute: ActivatedRoute,
-    private soloistProjectService: SoloistProjectsService) { }
+  constructor(private router: Router, 
+    private directorProjectService: DirectorProjectsService, 
+    private activatedRoute: ActivatedRoute,
+    private soloistProjectService: SoloistProjectsService, 
+    private alertController : AlertController) { }
 
 
   ngOnInit(): void {
@@ -34,6 +38,14 @@ export class MembersPage implements OnInit {
       o.subscribe((s: Array<DirectorProjects>) => {
         this.directorProjectArray = s;
 
+      }, (error) => {
+        let errorJSON = error.error
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+
+
+
+        this.presentAlert(errorMessage);
       })
     })
 
@@ -41,6 +53,14 @@ export class MembersPage implements OnInit {
       o.subscribe((s: Array<SoloistProjects>) => {
         this.soloistProjectArray = s;
 
+      }, (error) => {
+        let errorJSON = error.error
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+
+
+
+        this.presentAlert(errorMessage);
       })
     })
 
@@ -48,6 +68,17 @@ export class MembersPage implements OnInit {
 
 
 
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      subHeader: message,
+      message: 'Inténtalo de nuevo.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 
 
 

@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/models/user/user';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { Validators, FormControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {  MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,10 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private alertController: AlertController,
     private formBuilder: FormBuilder) { }
+    public menuCtrl: MenuController
 
   ngOnInit() {
+ 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')])],
@@ -29,7 +32,10 @@ export class LoginPage implements OnInit {
 
     );
 
+
+
   }
+
 
 
 
@@ -52,9 +58,16 @@ export class LoginPage implements OnInit {
 
       this.loginForm.reset();
 
-    }, err => {
-      this.presentAlert("Error");
+    }, 
+    (error) => {
+      let errorJSON = JSON.parse(error.error)
+      let errorMessage = ""
+      Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+      console.log(errorMessage);
+
+      this.presentAlert(errorMessage);
     });
+    
   }
 
   async presentAlert(message: string) {

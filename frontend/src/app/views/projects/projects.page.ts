@@ -7,6 +7,7 @@ import { PdfService } from 'src/app/services/pdf/pdf.service';
 import { GestureController, MenuController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { PdfProjectModalPage } from '../pdf-project-modal/pdf-project-modal/pdf-project-modal.page';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-projects',
@@ -28,7 +29,7 @@ export class ProjectsPage implements AfterViewInit {
 
 
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectsService: ProjectsService, private pdfService: PdfService, private gestureCtrl: GestureController, private modalController: ModalController) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectsService: ProjectsService, private pdfService: PdfService, private gestureCtrl: GestureController, private modalController: ModalController, private alertController: AlertController) { }
 
   ngOnInit(): void {
 
@@ -113,17 +114,39 @@ export class ProjectsPage implements AfterViewInit {
 
     this.projectsService.getProjects().then(o => {
       o.subscribe((p: Array<Projects>) => {
+
         this.projectsArray = p.filter((project) => {
 
 
           return project.published == true;
-        })
+        }
+        )
+
+      }, (error) => {
+        let errorJSON = error.error
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
 
 
 
+        this.presentAlert(errorMessage);
       })
-    })
+    }
 
+    )
+
+  }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      subHeader: message,
+      message: 'Inténtalo de nuevo.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 

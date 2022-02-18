@@ -1,0 +1,57 @@
+<ion-header>
+
+  <ion-toolbar id="navbar">
+    <ion-menu-button id="home-menu-container">
+      <ion-icon id="header-icon" src="assets/projects-color-icon.svg"></ion-icon>
+      <h2 id="header-text">Proyectos</h2>
+    </ion-menu-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="field1">
+        Field 1
+      </label>
+      <input id="field1" type="text" formControlName="field1">
+    </div>
+
+    <div>
+      <label for="field1">
+        Tipo de evento id
+      </label>
+      <input id="field1" type="text" formControlName="field1">
+    </div>
+
+    <div>
+      <label for="field1">
+        Id de la sala
+      </label>
+      <input id="field1" type="text" formControlName="field1">
+    </div>
+
+    <div>
+      <label for="field1">
+        Fecha
+      </label>
+      <input id="field1" type="text" formControlName="field1">
+    </div>
+
+
+    <div>
+      <label for="field1">
+        Hora
+      </label>
+      <input id="field1" type="text" formControlName="field1">
+    </div>
+
+    <div>
+      <label for="field1">
+        Notas
+      </label>
+      <input id="field1" type="text" formControlName="field1">
+    </div>
+    <button id="update-button" class="button" type="submit">Actualizar</button>
+  </form>
+</ion-content>

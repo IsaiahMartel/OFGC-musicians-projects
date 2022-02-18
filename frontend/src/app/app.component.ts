@@ -33,7 +33,9 @@ export class AppComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    console.log(this.holdBtn)
+   
+
+
     const longPress = this.gestureCtrl.create({
       el: this.holdBtn.nativeElement,
       threshold: 0,

@@ -4,7 +4,7 @@ import { SchedulesService } from '../../services/schedule.service';
 import { Projects } from '../../models/projects';
 import { ProjectsService } from '../../services/projects.service';
 import { Observable } from 'rxjs';
-
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +19,13 @@ export class HomePage {
   public projectsArray: Projects[] = [];
 
   constructor(private projectsService: ProjectsService,
-    private scheduleService: SchedulesService) { }
+    private scheduleService: SchedulesService, private alertController: AlertController) { }
 
   ngOnInit(): void {
     this.loadInfo();
   }
 
-  
+
 
   loadInfo() {
     this.projectsService.getProjects().then(o => {
@@ -35,13 +35,15 @@ export class HomePage {
           this.projects_id.push(project.id);
           this.getSchedules();
         })
-        // for (let project of p) {
-        //   if (project.published == true) {
-        //     this.projects_id.push(project.id);
-        //     this.getSchedules();
-        //   }
-        // }
-      })
+    
+      },  (error) => {
+        let errorJSON = error.error
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+     
+        
+  
+        this.presentAlert(errorMessage);})
     })
   }
 
@@ -54,4 +56,17 @@ export class HomePage {
       });
     }
   }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      subHeader: message,
+      message: 'Inténtalo de nuevo.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 }
