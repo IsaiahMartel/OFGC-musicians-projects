@@ -18,7 +18,7 @@ export class ProjectsPage implements AfterViewInit {
   hold = 0;
   longPressActive = false;
   menuController: MenuController;
-
+  private modalOpen: boolean = false;
 
   public projectsArray: Array<Projects> = [];
   public projects: Projects;
@@ -75,22 +75,37 @@ export class ProjectsPage implements AfterViewInit {
     }, timeout);
     if (this.hold == 4) {
       this.openModal();
-      console.log(this.projectId);
       this.hold = 0;
     }
   }
 
 
-
   async openModal() {
+
+
     const modal = await this.modalController.create({
       component: PdfProjectModalPage,
       handle: false,
       initialBreakpoint: 0.22,
       breakpoints: [0, 0.22],
     });
-    return await modal.present();
+
+    modal.onDidDismiss().then((o) => { this.modalOpen = false })
+
+    if (!this.modalOpen) {
+      this.modalOpen = true;
+
+
+
+      return await modal.present();
+
+
+    }
+
+
+    //  await modal.onWillDismiss().then((o) => { console.log(o) })
   }
+
 
 
 

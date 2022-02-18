@@ -55,14 +55,14 @@ export class RegisterPage implements OnInit {
     
     
     if (confirmPassword != password ) {
-      // console.log("Password == Confirm:" ,  formGroup.controls['confirmPassword'].errors);
+     
+      
 
       formGroup.controls['confirmPassword'].setErrors( { 'incorrect': true });
-      // console.log("Password == Confirm:" ,  formGroup.controls['confirmPassword'].errors);
+
 
     }else{
-      formGroup.controls['confirmPassword'].setErrors(formGroup.controls['confirmPassword'].errors || { 'incorrect': false });
-      // console.log("Password == Confirm:",  formGroup.controls['confirmPassword'].errors);
+      formGroup.controls['confirmPassword'].setErrors(null);
     }
   }
 

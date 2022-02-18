@@ -12,7 +12,7 @@ import { AuthModule } from './services/auth/auth.module';
 // import { IonRouterOutlet } from '@ionic/angular';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,],
   entryComponents: [],
   imports: [HammerModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, AuthModule,],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },  

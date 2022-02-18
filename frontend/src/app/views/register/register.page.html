@@ -45,7 +45,7 @@
         </ion-label>
         <ion-input name="confirmPassword" type="password" formControlName="confirmPassword" required>
         </ion-input>
-        <span *ngIf="registerForm.controls['confirmPassword'].hasError('incorrect')" >Las contraseñas no coinciden</span>
+        <span slot="error" *ngIf="registerForm.controls['confirmPassword'].hasError('incorrect') && registerForm.controls['confirmPassword'].touched" >Las contraseñas no coinciden</span>
        
       </ion-item>
     
