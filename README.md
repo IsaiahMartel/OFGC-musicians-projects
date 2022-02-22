@@ -150,7 +150,3 @@ Many videos of Develoteca's channel helped me for understanding laravel and crea
 This tutorial on how to create a CRUD in Ionic: https://remotestack.io/ionic-http-requests-with-httpclient-get-post-put-delete-tutorial/.
 
 To create this README and documentation I was colsuting the README of one class-mate, Ruben Banez: https://github.com/rubensantibanezacosta/Ocio_Open/blob/main/README.md and this guide: https://gist.github.com/vinkla/dca76249ba6b73c5dd66a4e986df4c8d.
-
-=======
-# OFGC-musicians-projects
->>>>>>> OFGC-musicians-projects/main
