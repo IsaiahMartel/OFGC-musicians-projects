@@ -20,8 +20,4 @@ darkMode: boolean = true;
   enableDarkMode(){
     document.body.classList.toggle('dark')
   }
-
-
-
-
 }
