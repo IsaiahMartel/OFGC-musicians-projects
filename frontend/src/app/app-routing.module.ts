@@ -56,13 +56,18 @@ const routes: Routes = [
   {
     path: 'pdf-project-modal',
     loadChildren: () => import('./views/pdf-project-modal/pdf-project-modal/pdf-project-modal.module').then( m => m.PdfProjectModalPageModule)
-  },  {
+  },
+  {
     path: 'send-single-project-pdf',
     loadChildren: () => import('./views/PdfModals/sendSingleProjectPdf/send-single-project-pdf/send-single-project-pdf.module').then( m => m.SendSingleProjectPdfPageModule)
   },
   {
     path: 'download-single-project-pdf',
     loadChildren: () => import('./views/PdfModals/downloadSingleProjectPdf/download-single-project-pdf/download-single-project-pdf.module').then( m => m.DownloadSingleProjectPdfPageModule)
+  },
+  {
+    path: 'chat',
+    loadChildren: () => import('../app/views/chat/chat.module').then( m => m.ChatPageModule)
   },
 
 

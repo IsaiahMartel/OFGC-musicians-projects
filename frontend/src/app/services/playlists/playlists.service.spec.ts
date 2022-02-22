@@ -25,7 +25,7 @@ describe('PlaylistsService', () => {
   // });
 
   it('getPlaylist() tiene que traer ', async () => {
-    await service.getPlaylistProjectsByProjectId(4).subscribe((playlistArray)=>{
+    await service.getPlaylistProjectsByProjectId(4).then((playlistArray)=>{
       expect(playlistArray[0].order).toBe("Vivaldi / Händel / Pachelbel /")
     })
   });
