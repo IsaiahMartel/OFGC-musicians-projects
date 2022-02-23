@@ -1,12 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "New Ionic App",
-  "integrations": {},
-=======
   "name": "frontend",
-  "integrations": {
-    "capacitor": {}
-  },
->>>>>>> 0bda68131221ae6b82dcec2a002000e20162618a
+  "integrations": {},
   "type": "angular"
 }

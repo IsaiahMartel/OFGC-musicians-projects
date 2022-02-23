@@ -9,14 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './services/auth/auth.module';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialAuthService } from 'angularx-social-login';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialAuthService, SocialLoginModule } from 'angularx-social-login';
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
 @NgModule({
   declarations: [AppComponent,],
   entryComponents: [],
-  imports: [HammerModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, AuthModule,  SocketIoModule.forRoot(config), ],
+  imports: [HammerModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, AuthModule,  SocketIoModule.forRoot(config), SocialLoginModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
     {
       provide: 'SocialAuthServiceConfig',

@@ -37,6 +37,7 @@
         <span slot="error" *ngIf="registerForm.controls['password'].errors?.required && registerForm.controls['password'].touched">Rellene la contraseña</span>
         <span slot="error" *ngIf="registerForm.controls['password'].errors?.minlength && registerForm.controls['password'].touched" >La contraseña debe de tener más de 6 caracteres.</span>
         <span slot="error" *ngIf="registerForm.controls['password'].errors?.maxlength" >La contraseña no puede tener más de 12 caracteres.</span>
+        <!-- <span slot="error" *ngIf="registerForm.controls['password'].errors?.pattern && registerForm.controls['password'].touched" >La contraseña no es válida.</span> -->
       </ion-item>
 
       <ion-item>

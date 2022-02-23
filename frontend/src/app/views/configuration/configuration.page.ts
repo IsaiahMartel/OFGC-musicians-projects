@@ -20,4 +20,8 @@ darkMode: boolean = true;
   enableDarkMode(){
     document.body.classList.toggle('dark')
   }
+
+  help(){
+    window.open('http://127.0.0.1:8082/Bienvenidos.html');
+  }
 }
