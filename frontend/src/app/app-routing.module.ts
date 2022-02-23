@@ -65,6 +65,10 @@ const routes: Routes = [
     path: 'download-single-project-pdf',
     loadChildren: () => import('./views/PdfModals/downloadSingleProjectPdf/download-single-project-pdf/download-single-project-pdf.module').then( m => m.DownloadSingleProjectPdfPageModule)
   },
+  {
+    path: 'chat',
+    loadChildren: () => import('../app/views/chat/chat.module').then( m => m.ChatPageModule)
+  },
 
 
 

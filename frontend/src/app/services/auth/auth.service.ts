@@ -12,6 +12,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
   providedIn: 'root'
 })
 export class AuthService {
+  username:string;
 
   AUTH_SERVER_ADDRESS: string = 'http://localhost:8000';
 
@@ -20,6 +21,7 @@ export class AuthService {
   }
 
   private getOptions(user: User) {
+    this.username=user.email;
     let base64UserAndPassword = window.btoa(user.email + ":" + user.password);
 
     let basicAccess = 'Basic ' + base64UserAndPassword;

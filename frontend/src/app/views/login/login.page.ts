@@ -3,10 +3,15 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { User } from 'src/app/models/user/user';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { Validators, FormControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import {  MenuController } from '@ionic/angular';
+=======
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from "angularx-social-login";
+import { User } from 'src/app/models/user/user';
+import { Storage } from '@ionic/storage';
+>>>>>>> main
 
 @Component({
   selector: 'app-login',
@@ -20,8 +25,14 @@ export class LoginPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private alertController: AlertController,
+<<<<<<< HEAD
     private formBuilder: FormBuilder) { }
     public menuCtrl: MenuController
+=======
+    private formBuilder: FormBuilder,
+    private authServiceSocial: SocialAuthService,
+    private storage: Storage,) { }
+>>>>>>> main
 
   ngOnInit() {
  
@@ -68,6 +79,23 @@ export class LoginPage implements OnInit {
       this.presentAlert(errorMessage);
     });
     
+  }
+
+  signInWithGoogle(): void {
+    this.authServiceSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then(res => {
+      let socialUser: SocialUser = res;
+      let user: User;
+      user.email = socialUser.email;
+      user.password = socialUser.id;
+      
+      this.authService.login(user).subscribe((res) => {        
+
+        localStorage.setItem("token", res.access_token);
+        this.storage.set("token", res.access_token);
+ 
+       this.router.navigateByUrl('home');
+     });
+    });
   }
 
   async presentAlert(message: string) {
