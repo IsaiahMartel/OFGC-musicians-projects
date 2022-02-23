@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap');
+#navbar {
+    border-width: 1px;
+    border-color: rgb(110, 102, 102);
+    border-style: solid;
+}
+
+ion-content {
+    --offset-bottom: auto!important;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+ion-menu {
+    padding: 0;
+    border-left: 1px solid rgb(110, 102, 102);
+    border-top: 1px solid rgb(110, 102, 102);
+}
+
+ion-item {
+    float: left;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid grey;
+    width: 100%;
+    height: 55px;
+    h2 {
+        position: fixed;
+        left: 60px;
+        // color: #464040;
+        font-family: 'Outfit', sans-serif;
+        font-weight: bold;
+    }
+}
+
+#home-icon {
+    font-size: 2.5em;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+#projects-icon {
+    font-size: 2.5em;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+#login-item {
+    border-top: 1px solid grey;
+}
+
+#login-icon {
+    font-size: 2.3em;
+    margin-left: 9px;
+    margin-top: 5px;
+}
+
+#configuration-icon {
+    font-size: 2.3em;
+    margin-left: 9px;
+    margin-top: 5px;
+}
