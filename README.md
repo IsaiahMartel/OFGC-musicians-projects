@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> main
 ## Table of Contents
 1. [General Info](#general-info)
 2. [Technologies](#technologies)
@@ -160,4 +156,4 @@ To create this README and documentation I was colsuting the README of one class-
 # OFGC-musicians-projects
 >>>>>>> 1e288e266b3a993683a9140dc0197f39265321b4
 =======
->>>>>>> main
+
