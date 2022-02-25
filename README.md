@@ -250,19 +250,6 @@ Now the app is running!!
 * https://www.youtube.com/watch?v=j7bml8EQpIk&t=2405s&ab_channel=Develoteca. This video helped me to create my backend in laravel 8.
 * https://remotestack.io/ionic-http-requests-with-httpclient-get-post-put-delete-tutorial/. This crud design guide in ionic helped me to solve some bugs I had in my project.
 
-## Documentation
-
-- [ER diagram](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/er-diagram.md)
-- [Case uses](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/use-cases.md)
-- [User requisites](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/user-requisites.md)
-- [Usability](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/usability.md)
-- [Technologies comparation](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/technologies-comparation.md)
-- [Developer's notes](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/developer's-notes.md)
-- [Advantages and disadvantages of each technology]()
-- [Postman Documen]()
-
-##
-
 Our teacher Tiburcio over-helped everyone through the project: https://github.com/tcrurav, and his example of Ionic-Spring was very useful for my first CRUD (https://github.com/tcrurav/spring_ionic_21_22).
 
 Many videos of Develoteca's channel helped me for understanding laravel and creating the backend. Like this, for example: https://www.youtube.com/watch?v=9DU7WLZeam8.
@@ -271,3 +258,12 @@ This tutorial on how to create a CRUD in Ionic: https://remotestack.io/ionic-htt
 
 To create this README and documentation I was colsuting the README of one class-mate, Ruben Banez: https://github.com/rubensantibanezacosta/Ocio_Open/blob/main/README.md and this guide: https://gist.github.com/vinkla/dca76249ba6b73c5dd66a4e986df4c8d.
 
+## Documentation
+
+- [ER diagram](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/er-diagram.md)
+- [Case uses](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/use-cases.md)
+- [User requisites](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/user-requisites.md)
+- [Usability](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/usability.md)
+- [Technologies comparation](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/technologies-comparation.md)
+- [Developer's notes](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/developer's-notes.md)
+- [Postman Documen]()
