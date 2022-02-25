@@ -258,6 +258,8 @@ Now the app is running!!
 - [Usability](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/usability.md)
 - [Technologies comparation](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/technologies-comparation.md)
 - [Developer's notes](https://github.com/IsaiahMartel/AuditorioIonicLaravel/blob/master/docs/developer's-notes.md)
+- [Advantages and disadvantages of each technology]()
+- [Postman Documen]()
 
 ##
 
