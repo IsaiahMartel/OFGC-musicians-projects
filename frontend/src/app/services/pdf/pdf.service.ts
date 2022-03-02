@@ -82,6 +82,7 @@ export class PdfService {
     console.log(this.category)
     switch (this.category) {
       case 0:
+
         
         this.sendProjectsPDF().then(o => {
           o.subscribe()
@@ -101,6 +102,7 @@ export class PdfService {
 
   async sendProjectsPDF() {
     await this.getHttpOptions();
+    console.log(this.httpOptions);
     return await this.httpClient.get(this.sendProjects, this.httpOptions);
   }
   async getProjectsPDF() {

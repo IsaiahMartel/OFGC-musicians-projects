@@ -19,11 +19,11 @@
   -->
 
 
-  <ion-searchbar></ion-searchbar>
     <div id="container" *ngFor="let p of projectsArray">
 
 
-        <ion-card routerLink="/tabs/calendar/{{p.id}}" #holdBtn>
+        <ion-card  routerLink="/tabs/calendar/{{p.id}}" #holdBtn>
+
             <ion-card-header>
                 <ion-row>
                     <ion-card-subtitle>> {{p.startDateProject}} - {{p.endDateProject}}</ion-card-subtitle>
@@ -40,6 +40,7 @@
 
 
             </ion-card-content>
+   
         </ion-card>
         <hr id="separation-title">
     </div>

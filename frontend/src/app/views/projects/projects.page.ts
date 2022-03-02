@@ -17,13 +17,15 @@ import { AlertController } from '@ionic/angular';
 export class ProjectsPage implements AfterViewInit {
   @ViewChildren('holdBtn', { read: ElementRef }) holdBtnArray: QueryList<ElementRef>;
   hold = 0;
+  modalId :number;
+  
   longPressActive = false;
   menuController: MenuController;
   private modalOpen: boolean = false;
 
   public projectsArray: Array<Projects> = [];
   public projects: Projects;
-  projectId = 0;
+  projectId : number;
 
 
 
@@ -42,6 +44,7 @@ export class ProjectsPage implements AfterViewInit {
     this.holdBtnArray.changes
       .subscribe(() => this.holdBtnArray.forEach((holdBtn: ElementRef) => {
         if (holdBtn != null) {
+       this.projectId = holdBtn.nativeElement.getAttribute("ng-reflect-router-link").split("/").pop()
           const longPress = this.gestureCtrl.create({
             el: holdBtn.nativeElement,
             threshold: 0,
@@ -75,8 +78,11 @@ export class ProjectsPage implements AfterViewInit {
       }
     }, timeout);
     if (this.hold == 4) {
+
+
+      
       this.openModal();
-      this.hold = 0;
+
     }
   }
 
