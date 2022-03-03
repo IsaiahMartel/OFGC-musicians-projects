@@ -95,21 +95,20 @@ Route::delete('/director-projects/{id}','App\Http\Controllers\DirectorProjectsCo
 Route::get('/director-projects/projects/{id}','App\Http\Controllers\DirectorProjectsController@showByProjectId');
 
 Route::get('/projects/sendPDF','App\Http\Controllers\ProjectsController@sendPDF');
-Route::get('/projects/downloadPDF','App\Http\Controllers\ProjectsController@downloadPDF');
 
-Route::get('/playlists/sendPDF/{id}','App\Http\Controllers\PlaylistsController@sendPDF');
-Route::get('/playlists/downloadPDF/{id}','App\Http\Controllers\PlaylistsController@downloadPDF');
+    
+    Route::get('/playlists/sendPDF/{id}','App\Http\Controllers\PlaylistsController@sendPDF');
 
-Route::get('/directorsPDF','App\Http\Controllers\DirectorsController@getAllDirectors');
-Route::get('/downloadDirectorsPDF', 'App\Http\Controllers\DirectorsController@downloadPDF');
-
-Route::get('/schedule/downloadPDF/{id}', 'App\Http\Controllers\ScheduleController@downloadPDF');
-Route::get('/schedule/sendPDF/{id}', 'App\Http\Controllers\ScheduleController@sendPDF');
-
-
-
+    
+    Route::get('/directorsPDF','App\Http\Controllers\DirectorsController@getAllDirectors');
+    Route::get('/downloadDirectorsPDF', 'App\Http\Controllers\DirectorsController@downloadPDF');
+    
+    
+    Route::get('/schedule/sendPDF/{id}', 'App\Http\Controllers\ScheduleController@sendPDF');
 });
-
+Route::get('/schedule/downloadPDF/{id}', 'App\Http\Controllers\ScheduleController@downloadPDF');
+Route::get('/playlists/downloadPDF/{id}','App\Http\Controllers\PlaylistsController@downloadPDF');
+Route::get('/projects/downloadPDF','App\Http\Controllers\ProjectsController@downloadPDF');
 
     Route::post('login', [\App\Http\Controllers\Api\V1\AuthController::class, 'login']);
     Route::post('logout', [\App\Http\Controllers\Api\V1\AuthController::class, 'logout']);
@@ -119,4 +118,5 @@ Route::get('/schedule/sendPDF/{id}', 'App\Http\Controllers\ScheduleController@se
 
     
     // Route::get('/projects/sendPDF','App\Http\Controllers\ProjectsController@sendPDF');
-   
+    
+    

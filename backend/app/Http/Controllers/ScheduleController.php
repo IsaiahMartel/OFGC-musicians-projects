@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Schedules;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Auth;
 use Mail;
 
 class ScheduleController extends Controller
@@ -123,9 +124,11 @@ class ScheduleController extends Controller
 
         public function sendPDF(Request $request)
         {
-            $schedule = Schedules::where('project_id', '=' ,$request->id)->with('rooms','typeschedules','projects')->get();
+            $user = Auth::user();
 
-            $data["email"]=  Auth::user()->email;;
+            $schedule = Schedules::where('project_id', '=' ,$request->id)->with('rooms','typeschedules','projects')->get();
+            
+            $data["email"]= "isaiahjesusmartelmartin@alumno.ieselrincon.es";
             $data["title"] = "From ItSolutionStuff.com";
             $data["body"] = "This is Demo";
             $pdf = PDF::loadView('schedules', compact('schedule'))->stream('schedules.pdf');

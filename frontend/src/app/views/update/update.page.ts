@@ -27,10 +27,12 @@ export class UpdatePage implements OnInit {
     private router: Router,
     private _location: Location
   ) {
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    
   }
 
   ngOnInit() {
+
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.fetchSchedule(this.id);
     this.updateForm = this.formBuilder.group({
       project_id: [''],

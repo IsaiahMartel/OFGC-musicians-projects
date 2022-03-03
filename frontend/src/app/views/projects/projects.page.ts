@@ -17,25 +17,19 @@ import { AlertController } from '@ionic/angular';
 export class ProjectsPage implements AfterViewInit {
   @ViewChildren('holdBtn', { read: ElementRef }) holdBtnArray: QueryList<ElementRef>;
   hold = 0;
-  modalId :number;
-  
+  modalId: number;
+
   longPressActive = false;
   menuController: MenuController;
   private modalOpen: boolean = false;
 
   public projectsArray: Array<Projects> = [];
   public projects: Projects;
-  projectId : number;
-
-
-
-
+  projectId: number;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectsService: ProjectsService, private pdfService: PdfService, private gestureCtrl: GestureController, private modalController: ModalController, private alertController: AlertController) { }
 
   ngOnInit(): void {
-
-
   }
 
   async ngAfterViewInit() {
@@ -44,7 +38,7 @@ export class ProjectsPage implements AfterViewInit {
     this.holdBtnArray.changes
       .subscribe(() => this.holdBtnArray.forEach((holdBtn: ElementRef) => {
         if (holdBtn != null) {
-       this.projectId = holdBtn.nativeElement.getAttribute("ng-reflect-router-link").split("/").pop()
+          this.projectId = holdBtn.nativeElement.getAttribute("ng-reflect-router-link").split("/").pop()
           const longPress = this.gestureCtrl.create({
             el: holdBtn.nativeElement,
             threshold: 0,
@@ -78,18 +72,14 @@ export class ProjectsPage implements AfterViewInit {
       }
     }, timeout);
     if (this.hold == 4) {
-
-
-      
       this.openModal();
-
+      this.hold = 0;
+      this.pdfService.projectId = this.projectId;
     }
   }
 
 
   async openModal() {
-
-
     const modal = await this.modalController.create({
       component: PdfProjectModalPage,
       handle: false,
