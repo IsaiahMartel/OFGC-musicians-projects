@@ -21,7 +21,9 @@ export class AuthService {
   }
 
   private getOptions(user: User) {
-    this.username=user.email;
+
+   
+    
     let base64UserAndPassword = window.btoa(user.email + ":" + user.password);
 
     let basicAccess = 'Basic ' + base64UserAndPassword;
@@ -54,6 +56,8 @@ export class AuthService {
 
 
   login(user: User): Observable<AuthResponse> {
+    this.username=user.email;
+    
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/api/login`, user).pipe(
       tap(async (res: AuthResponse) => {
 

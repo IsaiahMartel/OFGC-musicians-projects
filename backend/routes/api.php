@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Events\Hello;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -120,3 +120,6 @@ Route::get('/projects/downloadPDF','App\Http\Controllers\ProjectsController@down
     // Route::get('/projects/sendPDF','App\Http\Controllers\ProjectsController@sendPDF');
     
     
+    Route::post('/broadcast', function(Request $request){
+        broadcast(new Hello($request));
+    });

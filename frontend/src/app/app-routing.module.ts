@@ -69,6 +69,15 @@ const routes: Routes = [
     path: 'chat',
     loadChildren: () => import('../app/views/chat/chat.module').then( m => m.ChatPageModule)
   },
+  {
+    path: 'chat-with-laravel',
+    loadChildren: () => import('./views/chat-with-laravel/chat-with-laravel.module').then( m => m.ChatWithLaravelPageModule)
+  },  {
+    path: 'sqlite-view',
+    loadChildren: () => import('./views/sqlite-view/sqlite-view.module').then( m => m.SqliteViewPageModule)
+  },
+
+
 
 
 
