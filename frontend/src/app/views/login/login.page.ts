@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
-import { Validators, FormControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 import { User } from 'src/app/models/user/user';
 import { SocialAuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
@@ -33,15 +31,8 @@ export class LoginPage implements OnInit {
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')])],
     },
-
     );
-
-
-
   }
-
-
-
 
   login() {
     let user: User = {
@@ -61,7 +52,6 @@ export class LoginPage implements OnInit {
       this.router.navigateByUrl('/home');
 
       this.loginForm.reset();
-
     },
       (error) => {
         let errorJSON = JSON.parse(error.error)
@@ -71,7 +61,6 @@ export class LoginPage implements OnInit {
 
         this.presentAlert(errorMessage);
       });
-
   }
 
   signInWithGoogle(): void {
@@ -85,14 +74,8 @@ export class LoginPage implements OnInit {
         name: null,
         isAdmin: null
       };
-      console.log(socialUser.email);
-      
-
 
       this.authService.login(user).subscribe((res) => {
-
-
-
         this.router.navigateByUrl('home');
       });
     });

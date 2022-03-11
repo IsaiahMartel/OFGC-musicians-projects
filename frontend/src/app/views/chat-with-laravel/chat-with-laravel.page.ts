@@ -10,15 +10,9 @@ import { WebsocketService } from 'src/app/services/websocket/websocket.service';
   styleUrls: ['./chat-with-laravel.page.scss'],
 })
 export class ChatWithLaravelPage implements OnInit {
-
-  
   messages = [];
   nickname = this.authService.username;
   message = '';
-
-
-  
-
 
   constructor(private route: ActivatedRoute, private webSocket: WebsocketService,
     private authService : AuthService) { }
@@ -35,7 +29,6 @@ export class ChatWithLaravelPage implements OnInit {
       key: 'local',
       wsHost: 'localhost',
       wsPort: 6001,
-      // cluster: 'eu',
       forceTLS: false,
       disableStats: true
     });
@@ -47,10 +40,6 @@ export class ChatWithLaravelPage implements OnInit {
       this.messages.push(data);
     });
   }
-
-  // ionViewWillLeave() {
-  //   this.socket.disconnect();
-  // }
 
   sendMessage(){
     this.webSocket.sendBroadcast({ from: this.nickname, text: this.message}).subscribe(() => {

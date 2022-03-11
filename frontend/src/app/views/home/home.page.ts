@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Schedule } from '../../models/schedule';
-import { SchedulesService } from '../../services/schedule.service';
+import { SchedulesService } from '../../services/schedule/schedule.service';
 import { Projects } from '../../models/projects';
-import { ProjectsService } from '../../services/projects.service';
-import { Observable } from 'rxjs';
+import { ProjectsService } from '../../services/projects/projects.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -25,8 +24,6 @@ export class HomePage {
     this.loadInfo();
   }
 
-
-
   loadInfo() {
     this.projectsService.getProjects().then(o => {
       o.subscribe((p: Array<Projects>) => {
@@ -35,15 +32,16 @@ export class HomePage {
           this.projects_id.push(project.id);
           this.getSchedules();
         })
-    
-      },  (error) => {
+
+      }, (error) => {
         let errorJSON = error.error
         let errorMessage = ""
         Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-     
-        
-  
-        this.presentAlert(errorMessage);})
+
+
+
+        this.presentAlert(errorMessage);
+      })
     })
   }
 

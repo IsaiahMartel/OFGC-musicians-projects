@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ChatService } from '../../services/chat/chat.service';
+import { ChatService } from 'src/app/services/chat/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -52,6 +52,4 @@ export class ChatPage implements OnInit {
 
     this.texto="";
   }
-
- 
 }
