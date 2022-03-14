@@ -36,13 +36,13 @@ ion-content {
 }
 
 #square {
-    margin-top: 30px;
+    margin-top: 10px;
     margin-left: 15px;
     margin-right: 15px;
     border-width: 1px;
     border-color: var(--ion-color-dark);
     border-style: solid;
-    background-color: var(--ion-color-light);
+    background-color: var(--ion-color-primary-contrast);
     padding: 10px;
     padding-bottom: 30px;
     border-radius: 4px;
@@ -63,7 +63,7 @@ h3 {
 }
 
 .label {
-    font-size: 1.8em;
+    font-size: 1.5em;
     margin-left: 40px;
     font-family: 'Outfit', sans-serif;
     margin-bottom: 0px;
@@ -79,19 +79,19 @@ input {
 }
 
 #password-fields {
-    margin-top: 5%;
+    // margin-top: 5%;
 }
 
 #forgot-password-text {
     color: var(--ion-color-tertiary);
     display: block;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 20px;
 }
 
 #login-button {
-    width: 80%;
+    width: 40%;
     height: 60px;
     margin-left: auto;
     margin-right: auto;
@@ -101,10 +101,10 @@ input {
     border-color: black;
     border-style: solid;
     font-family: 'Outfit', sans-serif;
-    background-color: #ffffff;
+    background-color: var(--ion-color-light);
     box-shadow: 0 0 1px black;
     border-radius: 4px;
-    margin-bottom: 5%;
+    // margin-bottom: 5%;
 }
 
 #are-you-not-registered-text {
@@ -113,7 +113,7 @@ input {
 
 #register-text {
     text-align: center;
-    color: #0099FF;
+    color: var(--ion-color-tertiary);
     margin: 0;
 }
 

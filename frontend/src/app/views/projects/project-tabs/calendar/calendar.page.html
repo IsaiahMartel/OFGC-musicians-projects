@@ -15,12 +15,9 @@
                 <h1><b>>Hora:</b> {{s.hourRange}}</h1>
 
                 <h1><b>>Notas: </b>{{s.note}}
-                    <ion-icon name="trash" id="delete-button" (click)="deleteSchedule(s.id)">
-                    </ion-icon>
-                    <ion-icon name="create" id="update-button" [routerLink]="['/update/', s.id]"></ion-icon>
+
                 </h1>
             </ion-card-content>
         </ion-card>
     </div>
-    <ion-icon name="add-circle" id="create-button" routerLink="/create"></ion-icon>
 </ion-content>
