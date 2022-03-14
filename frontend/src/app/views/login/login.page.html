@@ -49,18 +49,18 @@
                         contraseña debe de tener más de 6 caracteres.</span>
                     <span slot="error" *ngIf="loginForm.controls['password'].errors?.maxlength">La contraseña no puede
                         tener más de 12 caracteres.</span>
-                    <!-- <span slot="error" *ngIf="loginForm.controls['password'].errors?.pattern && loginForm.controls['password'].touched" >La contraseña no es válida.</span>-->
+                    <span slot="error" *ngIf="loginForm.controls['password'].errors?.pattern && loginForm.controls['password'].touched" >La contraseña no es válida.</span>
                 </ion-item>
 
 
-                <!-- <ion-checkbox id="remember-me-checkbox" class="checkbox-square" mode="md">
+                <ion-checkbox id="remember-me-checkbox" class="checkbox-square" mode="md">
             </ion-checkbox>
-            <label for="remember-me-checkbox" id="remember-me-text">Recuérdame</label> --> 
+            <label for="remember-me-checkbox" id="remember-me-text">Recuérdame</label> 
 
-                    <!-- <ion-button type="button" expand="block" color="tertiary" (click)="signInWithGoogle()">
+                    <ion-button type="button" expand="block" color="tertiary" (click)="signInWithGoogle()">
                         <ion-icon name="logo-google" slot="start"></ion-icon>
                         Iniciar sesión con Google
-                    </ion-button> -->
+                    </ion-button>
 
                     <h3 id="forgot-password-text">¿Olvidaste la contraseña?</h3>
                     <button type="submit" id="login-button" class="button" type="submit">ENTRAR</button>
