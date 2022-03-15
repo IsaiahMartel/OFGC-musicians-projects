@@ -6,7 +6,8 @@ import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angula
 import { MenuController } from '@ionic/angular';
 import { User } from 'src/app/models/user/user';
 import { SocialAuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-
+// import { GoogleAuth, GoogleAuthPlugin } from '@codetrix-studio/capacitor-google-auth';
+import { isPlatform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ import { SocialAuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvid
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
+  user = null;
 
   constructor(
     private router: Router,
@@ -22,7 +24,16 @@ export class LoginPage implements OnInit {
     private alertController: AlertController,
     private formBuilder: FormBuilder,
     private authServiceSocial: SocialAuthService,
-  ) { }
+
+
+  ) {
+    // this.initOptions.grantOfflineAccess = true;
+    // if (!isPlatform('capacitor')) {
+    //   if (!isPlatform) {
+    //     GoogleAuth.initialize();
+    //   }
+    // }
+  }
   public menuCtrl: MenuController
 
   ngOnInit() {
@@ -32,6 +43,7 @@ export class LoginPage implements OnInit {
       password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')])],
     },
     );
+
   }
 
   login() {
@@ -63,7 +75,25 @@ export class LoginPage implements OnInit {
       });
   }
 
+  // async signInWithGoogle() {
+
+  //   // this.user = await GoogleAuth.signIn();
+
+  //   console.log("user: ", this.user);
+
+  // }
+
+  // async refreshGoogle() {
+  //   const authCode = await GoogleAuth.refresh();
+  //   console.log("refres: ", authCode);
+  // }
+
+  // async signOut() {
+  //   await GoogleAuth.signOut();
+  //   this.user = null;
+  // }
   signInWithGoogle(): void {
+
     this.authServiceSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then(res => {
       let socialUser: SocialUser = res;
 
@@ -75,10 +105,20 @@ export class LoginPage implements OnInit {
         isAdmin: null
       };
 
+      this.authService.register(user).subscribe();
+      
       this.authService.login(user).subscribe((res) => {
         this.router.navigateByUrl('home');
       });
-    });
+    }),
+      (error) => {
+        let errorJSON = JSON.parse(error.error)
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+        console.log(errorMessage);
+
+        this.presentAlert(errorMessage);
+      };
   }
 
   async presentAlert(message: string) {

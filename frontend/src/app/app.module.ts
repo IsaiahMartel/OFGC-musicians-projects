@@ -16,7 +16,10 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 @NgModule({
   declarations: [AppComponent,],
   entryComponents: [],
-  imports: [HammerModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, AuthModule,  SocketIoModule.forRoot(config), SocialLoginModule],
+  imports: [HammerModule, BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule, HttpClientModule, AuthModule,  
+    SocketIoModule.forRoot(config), SocialLoginModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
     {
       provide: 'SocialAuthServiceConfig',
@@ -26,7 +29,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '806724117090-bain010265pcefpqn7hlgipq2b6poecs.apps.googleusercontent.com'
+              '496549363577-goftinjkirl8qe42j4g27dv2287qmh14.apps.googleusercontent.com'
             )
           },]
       } as SocialAuthServiceConfig,
