@@ -6,8 +6,6 @@ import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angula
 import { MenuController } from '@ionic/angular';
 import { User } from 'src/app/models/user/user';
 import { SocialAuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-// import { GoogleAuth, GoogleAuthPlugin } from '@codetrix-studio/capacitor-google-auth';
-import { isPlatform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +25,7 @@ export class LoginPage implements OnInit {
 
 
   ) {
-    // this.initOptions.grantOfflineAccess = true;
-    // if (!isPlatform('capacitor')) {
-    //   if (!isPlatform) {
-    //     GoogleAuth.initialize();
-    //   }
-    // }
+
   }
   public menuCtrl: MenuController
 
@@ -40,7 +33,8 @@ export class LoginPage implements OnInit {
 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6), 
+        Validators.maxLength(12), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')])],
     },
     );
 
@@ -75,23 +69,7 @@ export class LoginPage implements OnInit {
       });
   }
 
-  // async signInWithGoogle() {
 
-  //   // this.user = await GoogleAuth.signIn();
-
-  //   console.log("user: ", this.user);
-
-  // }
-
-  // async refreshGoogle() {
-  //   const authCode = await GoogleAuth.refresh();
-  //   console.log("refres: ", authCode);
-  // }
-
-  // async signOut() {
-  //   await GoogleAuth.signOut();
-  //   this.user = null;
-  // }
   signInWithGoogle(): void {
 
     this.authServiceSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then(res => {
@@ -100,14 +78,14 @@ export class LoginPage implements OnInit {
       let user: User = {
         id: null,
         email: socialUser.email,
-        password: socialUser.id,
+        password: null,
         name: null,
         isAdmin: null
       };
 
-      this.authService.register(user).subscribe();
-      
-      this.authService.login(user).subscribe((res) => {
+      this.authService.registerWithGoogle(user).subscribe();
+
+      this.authService.loginWithGoogle(user).subscribe((res) => {
         this.router.navigateByUrl('home');
       });
     }),

@@ -18,7 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login','register', 'registerWithGoogle', 'loginWithGoogle']]);
     }
 
     /**
@@ -41,6 +41,21 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+    }
+
+    public function loginWithGoogle(Request $request)
+    {
+        $credentials = request(['email']);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:100|in:users'
+        ]);
+
+            if (! $token = auth()->attempt($credentials)) {
+                return response()->json($validator->errors()->toJson(),400);
+            }
+    
+            return $this->respondWithToken($token);
+  
     }
 
     /**
@@ -104,6 +119,25 @@ class AuthController extends Controller
         $user = User::create(array_merge(
             $validator->validate(),
             ['password' => bcrypt($request->password)]
+        ));
+
+        return response()->json([
+            'message' => 'Successfully user registered!',
+            'user' => $user
+        ], 201);
+    }
+
+    public function registerWithGoogle(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:100|unique:users',
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(),400);
+        }
+
+        $user = User::create(array_merge(
+            $validator->validate(),
         ));
 
         return response()->json([

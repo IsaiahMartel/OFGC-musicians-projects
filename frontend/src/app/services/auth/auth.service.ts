@@ -42,7 +42,7 @@ export class AuthService {
 
   register(user: User): Observable<any> {
     //return this.httpClient.post<any>(`${this.AUTH_SERVER_ADDRESS}/api/register/`, JSON.stringify(user))
-    return this.httpClient.post<any>(`${this.AUTH_SERVER_ADDRESS}/api/register/`, user)
+    return this.httpClient.post<any>(`${this.AUTH_SERVER_ADDRESS}/api/register-with-google/`, user)
   }
   //.pipe(
   //   tap(async (res:  AuthResponse ) => {
@@ -54,11 +54,15 @@ export class AuthService {
 
   //  );
 
+  registerWithGoogle(user: User): Observable<any> {
+    //return this.httpClient.post<any>(`${this.AUTH_SERVER_ADDRESS}/api/register/`, JSON.stringify(user))
+    return this.httpClient.post<any>(`${this.AUTH_SERVER_ADDRESS}/api/register-with-google/`, user)
+  }
 
   login(user: User): Observable<AuthResponse> {
     this.username=user.email;
     
-    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/api/login`, user).pipe(
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/api/login-with-google`, user).pipe(
       tap(async (res: AuthResponse) => {
 
         if (res.access_token) {
@@ -69,6 +73,23 @@ export class AuthService {
         }
       }));
   }
+
+  
+  loginWithGoogle(user: User): Observable<AuthResponse> {
+    this.username=user.email;
+    
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/api/login-with-google`, user).pipe(
+      tap(async (res: AuthResponse) => {
+
+        if (res.access_token) {
+          this.localStorageService.setToken(res.access_token);
+          this.storage.ready().then(() => {
+            this.storage.set("access_token", res.access_token);
+          })
+        }
+      }));
+  }
+
 
   async logout() {
     await this.storage.remove("access_token");

@@ -123,3 +123,7 @@ Route::get('/projects/downloadPDF','App\Http\Controllers\ProjectsController@down
     Route::post('/broadcast', function(Request $request){
         broadcast(new Hello($request));
     });
+
+
+    Route::post('login-with-google', [\App\Http\Controllers\Api\V1\AuthController::class, 'loginWithGoogle']);
+    Route::post('register-with-google', 'App\Http\Controllers\Api\V1\AuthController@registerWithGoogle');
