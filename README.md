@@ -170,6 +170,14 @@ Generate a new application key
 ```
 php artisan key:generate
 ```
+Clear Configuration Cache
+```
+php artisan config:clear
+```
+jwt laravel
+```
+php artisan jwt:secret
+```
 
 Run the database migrations (Set the database connection in .env before migrating)
 
