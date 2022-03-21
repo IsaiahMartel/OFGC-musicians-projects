@@ -4,6 +4,8 @@ import { SchedulesService } from '../../services/schedule/schedule.service';
 import { Projects } from '../../models/projects';
 import { ProjectsService } from '../../services/projects/projects.service';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-home',
@@ -17,16 +19,25 @@ export class HomePage {
   public scheduleArray: Schedule[] = [];
   public projectsArray: Projects[] = [];
 
-  constructor(private projectsService: ProjectsService,
-    private scheduleService: SchedulesService, private alertController: AlertController) { }
+  constructor(
+    private projectsService: ProjectsService,
+    private scheduleService: SchedulesService, 
+    private alertController: AlertController,
+    public storage: Storage
+    ) { }
 
   ngOnInit(): void {
     this.loadInfo();
   }
 
   loadInfo() {
+
+    if (navigator.onLine) {
+
     this.projectsService.getProjects().then(o => {
       o.subscribe((p: Array<Projects>) => {
+        this.storage.set("project", JSON.stringify(p));
+
         this.projectsArray = p.filter((project) => {
           project.published == true;
           this.projects_id.push(project.id);
@@ -43,6 +54,14 @@ export class HomePage {
         this.presentAlert(errorMessage);
       })
     })
+
+  }else {
+    this.storage.get("project").then((s) => {
+      this.projectsArray = JSON.parse(s);
+    })
+  }
+
+
   }
 
   getSchedules() {

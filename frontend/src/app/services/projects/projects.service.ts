@@ -21,7 +21,11 @@ export class ProjectsService {
 
   endpoint: string = "http://localhost:8000/api/projects";
 
-  constructor(private httpClient: HttpClient, private storage: Storage, private localStorageService: LocalStorageService) {
+  constructor(
+    private httpClient: HttpClient, 
+    private storage: Storage, 
+    private localStorageService: LocalStorageService
+    ) {
 
   }
 
@@ -32,9 +36,7 @@ export class ProjectsService {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${o}`
         })
-
       };
-
       ;
     });
 

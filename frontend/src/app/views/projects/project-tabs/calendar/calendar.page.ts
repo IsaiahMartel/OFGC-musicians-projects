@@ -1,9 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Schedule } from '../../../../models/schedule';
 import { SchedulesService } from '../../../../services/schedule/schedule.service';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-calendar',
@@ -15,10 +17,12 @@ export class CalendarPage implements OnInit {
   public schedule: Schedule;
   project_id = this.activatedRoute.snapshot.paramMap.get('id');
 
-  constructor(private router: Router,
+  constructor(
     private scheduleService: SchedulesService,
     private activatedRoute: ActivatedRoute,
-    private alertController: AlertController
+    private alertController: AlertController,
+    public storage: Storage
+
   ) { }
 
 
@@ -27,17 +31,25 @@ export class CalendarPage implements OnInit {
   }
 
   loadInfo() {
-    this.scheduleService.getSchedulesByProjectId(this.project_id).then(o => {
-      o.subscribe((s: Array<Schedule>) => {
-        this.scheduleArray = s;
-      }, (error) => {
-        let errorJSON = error.error
-        let errorMessage = ""
-        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-
-        this.presentAlert(errorMessage);
+    if (navigator.onLine) {
+      this.scheduleService.getSchedulesByProjectId(this.project_id).then(o => {
+        o.subscribe((s: Array<Schedule>) => {
+          this.storage.set("sheduleId", JSON.stringify(s));
+          this.scheduleArray = s;
+        }, (error) => {
+          let errorJSON = error.error
+          let errorMessage = ""
+          Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+          this.presentAlert(errorMessage);
+        })
       })
-    })
+    } else {
+      this.storage.get("sheduleId").then((s) => {
+        this.scheduleArray = JSON.parse(s);
+      })
+    }
+
+
   }
 
   deleteSchedule(idSchedule: number) {

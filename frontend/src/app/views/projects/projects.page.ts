@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { Projects } from '../../models/projects';
 import { ProjectsService } from '../../services/projects/projects.service';
 import { PdfService } from 'src/app/services/pdf/pdf.service';
@@ -7,6 +6,8 @@ import { GestureController, MenuController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { EventsOrWorksModal } from './reports/events-or-works-modal/events-or-works-modal.page';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-projects',
@@ -26,14 +27,20 @@ export class ProjectsPage implements AfterViewInit {
   public projects: Projects;
   projectId: number;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectsService: ProjectsService, private pdfService: PdfService, private gestureCtrl: GestureController, private modalController: ModalController, private alertController: AlertController) { }
+  constructor(
+    private projectsService: ProjectsService,
+    private pdfService: PdfService,
+    private gestureCtrl: GestureController,
+    private modalController: ModalController,
+    private alertController: AlertController,
+    public storage: Storage
+  ) { }
 
   ngOnInit(): void {
   }
 
   async ngAfterViewInit() {
     await this.loadInfo();
-
     this.holdBtnArray.changes
       .subscribe(() => this.holdBtnArray.forEach((holdBtn: ElementRef) => {
         if (holdBtn != null) {
@@ -48,16 +55,12 @@ export class ProjectsPage implements AfterViewInit {
             },
             onEnd: ev => {
               this.longPressActive = false;
-
             }
           }, true);
-
           longPress.enable(true);
         }
       })
       );
-
-
   }
 
   increase(timeout = 200) {
@@ -94,22 +97,29 @@ export class ProjectsPage implements AfterViewInit {
   }
 
   loadInfo() {
-    this.projectsService.getProjects().then(o => {
-      o.subscribe((p: Array<Projects>) => {
-        this.projectsArray = p.filter((project) => {
-          return project.published == true;
-        }
-        )
+    if(navigator.onLine){      
+      this.projectsService.getProjects().then(o => {
+        o.subscribe((p: Array<Projects>) => {
 
-      }, (error) => {
-        let errorJSON = error.error
-        let errorMessage = ""
-        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+          //save storage
+          this.storage.set("projects", JSON.stringify(p));
 
-        this.presentAlert(errorMessage);
+          this.projectsArray = p.filter((project) => {
+            return project.published == true;
+          })
+        }, (error) => {
+          let errorJSON = error.error
+          let errorMessage = ""
+          Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+          this.presentAlert(errorMessage);
+        })
+      })
+    } else{
+      this.storage.get("projects").then((p) => {
+        this.projectsArray = JSON.parse(p);
       })
     }
-    )
+    
   }
 
   async presentAlert(message: string) {
@@ -120,24 +130,6 @@ export class ProjectsPage implements AfterViewInit {
       message: 'Inténtalo de nuevo.',
       buttons: ['OK']
     });
-
     await alert.present();
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
