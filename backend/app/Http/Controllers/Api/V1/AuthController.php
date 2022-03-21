@@ -31,7 +31,7 @@ class AuthController extends Controller
         // 
         $credentials = request(['email', 'password']);
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:100|in:users',
+            'email' => 'required|string|email',
             'password' => 'required|string|min:6',
         ]);
      
@@ -45,16 +45,17 @@ class AuthController extends Controller
 
     public function loginWithGoogle(Request $request)
     {
-        $credentials = request(['email']);
+        $credentials = request(['email', 'password']);
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:100|in:users'
+            'email' => 'required|string|email|max:100|in:users',
+            'password' => ''
         ]);
 
-            if (! $token = auth()->attempt($credentials)) {
-                return response()->json($validator->errors()->toJson(),400);
-            }
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json($validator->errors()->toJson(),400);
+        }
     
-            return $this->respondWithToken($token);
+        return $this->respondWithToken($token);
   
     }
 
@@ -131,6 +132,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:100|unique:users',
+            'password' => ''
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(),400);
