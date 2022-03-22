@@ -42,6 +42,7 @@ class DirectorProjectsController extends Controller
             $directorProject-> director_id = $request-> director_id;
             
             $directorProject->save();
+            broadcast(new Alert("Un director se ha unido al proyecto"));
         }
     
         /**
@@ -103,6 +104,8 @@ class DirectorProjectsController extends Controller
           
             $directorProject = DirectorProjects::destroy($request->id);
     
+            broadcast(new Alert("Un director ha salido del proyecto"));
+
             return $directorProject;
         }
 }

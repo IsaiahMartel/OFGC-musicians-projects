@@ -48,6 +48,9 @@ class ProjectsController extends Controller
         $project->seasons_id=$request->seasons_id;
         $project->orchestrationProject=$request->orchestrationProject;
         $project->save();
+
+        broadcast(new Alert("Se ha añadido un proyecto"));
+
     }
 
     /**
@@ -91,7 +94,7 @@ class ProjectsController extends Controller
         
         $project->save();
 
-        broadcast(new Alert(("Se ha actualizado un proyecto.")));
+        broadcast(new Alert("Se ha actualizado un proyecto"));
 
         return $project;
     }
@@ -107,6 +110,7 @@ class ProjectsController extends Controller
         
       
         $project = Projects::destroy($request->id);
+        broadcast(new Alert("Se ha borrado un proyecto"));
 
         return $project;
     }

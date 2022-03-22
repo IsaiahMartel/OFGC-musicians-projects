@@ -48,6 +48,8 @@ class PlaylistsController extends Controller
         $playlist->composer_id=$request->composer_id;
     
         $playlist->save();
+
+        broadcast(new Alert("Se ha añadido obra(s)"));
     }
 
     /**
@@ -97,6 +99,8 @@ class PlaylistsController extends Controller
         
         $playlist->save();
 
+        broadcast(new Alert("Se ha actualizado obra(s)"));
+
         return $playlist;
     }
 
@@ -111,6 +115,8 @@ class PlaylistsController extends Controller
         
       
         $playlist = playlists::destroy($request->id);
+
+        broadcast(new Alert("Se ha borrado obra(s)"));
 
         return $playlist;
     }

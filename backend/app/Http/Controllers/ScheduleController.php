@@ -48,6 +48,8 @@ class ScheduleController extends Controller
             $schedule->note=$request->note;
             $schedule->rooms_id=$request->rooms_id;
 
+            broadcast(new Alert("Se ha añadido un evento al proyecto"));
+
             $schedule->save();
         }
     
@@ -101,6 +103,7 @@ class ScheduleController extends Controller
             
             $schedule->save();
     
+            broadcast(new Alert("Se ha actualizado un evento del proyecto"));
             return $schedule;
         }
     
@@ -152,6 +155,7 @@ class ScheduleController extends Controller
             
             $schedule = Schedules::destroy($request->id);
     
+            broadcast(new Alert("Se ha eliminado un evento del proyecto"));
             return $schedule;
         }
 }
