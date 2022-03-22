@@ -7,7 +7,9 @@ import { ModalController } from '@ionic/angular';
 import { EventsOrWorksModal } from './reports/events-or-works-modal/events-or-works-modal.page';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-
+import { WebsocketService } from 'src/app/services/websocket/websocket.service';
+import { ActivatedRoute } from '@angular/router';
+import { Echo } from 'laravel-echo-ionic';
 
 @Component({
   selector: 'app-projects',
@@ -33,10 +35,15 @@ export class ProjectsPage implements AfterViewInit {
     private gestureCtrl: GestureController,
     private modalController: ModalController,
     private alertController: AlertController,
-    public storage: Storage
+    public storage: Storage,
+    private webSocket: WebsocketService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.doConnection();
+    });
   }
 
   async ngAfterViewInit() {
@@ -61,6 +68,24 @@ export class ProjectsPage implements AfterViewInit {
         }
       })
       );
+  }
+
+  doConnection() {
+    const echo = new Echo({
+      broadcaster: 'pusher',
+      key: 'local',
+      wsHost: 'localhost',
+      wsPort: 6001,
+      forceTLS: false,
+      disableStats: true
+    });
+
+    const channel = echo.channel('channel');
+    channel.listen('Alert', (data) => {
+      console.log(JSON.stringify(data));
+      this.notification(data);
+      this.updateData();
+    });
   }
 
   increase(timeout = 200) {
@@ -97,29 +122,39 @@ export class ProjectsPage implements AfterViewInit {
   }
 
   loadInfo() {
-    if(navigator.onLine){      
-      this.projectsService.getProjects().then(o => {
-        o.subscribe((p: Array<Projects>) => {
+  
+    
+    if (this.projectsArray.length ==0) {
+      this.updateData();
+    }
 
-          //save storage
-          this.storage.set("projects", JSON.stringify(p));
-
-          this.projectsArray = p.filter((project) => {
-            return project.published == true;
-          })
-        }, (error) => {
-          let errorJSON = error.error
-          let errorMessage = ""
-          Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-          this.presentAlert(errorMessage);
-        })
-      })
-    } else{
+    else {
       this.storage.get("projects").then((p) => {
         this.projectsArray = JSON.parse(p);
       })
     }
-    
+  }
+
+
+
+  updateData() {
+    this.projectsService.getProjects().then(o => {
+      o.subscribe((p: Array<Projects>) => {
+
+        //save storage
+        this.storage.set("projects", JSON.stringify(p));
+
+        this.projectsArray = p.filter((project) => {
+          return project.published == true;
+        })
+      }, (error) => {
+        let errorJSON = error.error
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+        this.presentAlert(errorMessage);
+      })
+    })
+
   }
 
   async presentAlert(message: string) {
@@ -128,6 +163,16 @@ export class ProjectsPage implements AfterViewInit {
       header: 'Error',
       subHeader: message,
       message: 'Inténtalo de nuevo.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async notification(message: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Se han realizado cambios',
+      message: message,
       buttons: ['OK']
     });
     await alert.present();

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Echo} from 'laravel-echo-ionic';
+import { Echo } from 'laravel-echo-ionic';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { WebsocketService } from 'src/app/services/websocket/websocket.service';
 
@@ -15,7 +15,7 @@ export class ChatWithLaravelPage implements OnInit {
   message = '';
 
   constructor(private route: ActivatedRoute, private webSocket: WebsocketService,
-    private authService : AuthService) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -36,17 +36,21 @@ export class ChatWithLaravelPage implements OnInit {
     const channel = echo.channel('channel');
     channel.listen('Hello', (data) => {
       console.log("algo llegó")
-      console.log(this.nickname, " " , JSON.stringify(data));
+      console.log(this.nickname, " ", JSON.stringify(data));
       this.messages.push(data);
+      console.log("a");
+
     });
   }
 
-  sendMessage(){
-    this.webSocket.sendBroadcast({ from: this.nickname, text: this.message}).subscribe(() => {
+  sendMessage() {
+    console.log(this.nickname, " ", this.message);
+
+    this.webSocket.sendBroadcastChat({ from: this.nickname, text: this.message }).subscribe(() => {
       this.message = '';
       console.log("message sent");
     });
-    
+
   }
 
 }

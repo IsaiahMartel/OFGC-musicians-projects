@@ -15,7 +15,13 @@ export class WebsocketService {
 
   constructor(private httpClient: HttpClient) { }
 
-  sendBroadcast(message) {
-    return this.httpClient.post(`${this.url}/broadcast`, JSON.stringify(message), { headers });
+  sendBroadcastChat(message) {
+    return this.httpClient.post(`${this.url}/chat`, JSON.stringify(message), { headers });
+  }
+
+  sendBroadcast() {
+    console.log(this.httpClient.get(`${this.url}/broadcast`, { headers }));
+    
+    return this.httpClient.get(`${this.url}/broadcast`, { headers });
   }
 }

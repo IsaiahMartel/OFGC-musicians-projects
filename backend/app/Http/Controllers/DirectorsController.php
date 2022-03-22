@@ -95,7 +95,7 @@ class DirectorsController extends Controller
             
           
             $director = Directors::destroy($request->id);
-    
+                
             return $director;
         }
 

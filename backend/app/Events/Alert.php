@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Hello implements ShouldBroadcast
+class Alert implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -23,13 +23,16 @@ class Hello implements ShouldBroadcast
      */
     public function __construct($request)
     {
+        $this->message = [$request];
 
-        $this->message = $request->all();
+     
+
     }
 
     public function broadcastWith(){
 
         return $this->message;
+        // return ['hello'];
     }
 
     /**

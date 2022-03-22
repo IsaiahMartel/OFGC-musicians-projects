@@ -7,6 +7,7 @@ use App\Models\Projects;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Mail;
+use App\Events\Alert;
 
 class ProjectsController extends Controller
 {
@@ -89,6 +90,8 @@ class ProjectsController extends Controller
         $project->orchestrationProject=$request->orchestrationProject;
         
         $project->save();
+
+        broadcast(new Alert(("Se ha actualizado un proyecto.")));
 
         return $project;
     }
