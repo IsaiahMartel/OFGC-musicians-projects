@@ -49,6 +49,13 @@ export class ProjectsService {
     return await this.httpClient.get<Projects[]>(this.endpoint, this.httpOptions);
   }
 
+  getProjects1() {
+
+    
+
+    return this.httpClient.get<Projects[]>(this.endpoint);
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
