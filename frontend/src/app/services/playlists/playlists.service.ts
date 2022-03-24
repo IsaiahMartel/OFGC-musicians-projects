@@ -5,46 +5,19 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Playlists } from 'src/app/models/playlists/playlists';
 
-import { Storage } from '@ionic/storage';
-
-import { LocalStorageService } from '../local-storage/local-storage.service';
-
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistsService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${""}`
-    })
-  }
-
-
   endpoint: string = "http://localhost:8000/api/playlists";
 
-  constructor(private httpClient: HttpClient, private storage: Storage, private localStorageService: LocalStorageService) {
-
-  }
-
-  async getHttpOptions() {
-    await this.localStorageService.getToken().then(o => {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${o}`
-        })
-
-      };
-
-      ;
-    });
+  constructor(private httpClient: HttpClient,
+   ) {
 
   }
 
   async getPlaylistProjectsByProjectId(projectId) {
-    await this.getHttpOptions();
-    return await this.httpClient.get<Playlists[]>(this.endpoint + "/projects/" + projectId, this.httpOptions).pipe(
+    return this.httpClient.get<Playlists[]>(this.endpoint + "/projects/" + projectId).pipe(
       tap(_ => console.log("PlaylistProject retrieved")),
       catchError(this.handleError<Playlists[]>("Get playlist project", []))
     );

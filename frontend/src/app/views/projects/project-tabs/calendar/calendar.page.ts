@@ -32,17 +32,16 @@ export class CalendarPage implements OnInit {
 
   loadInfo() {
     if (navigator.onLine) {
-      this.scheduleService.getSchedulesByProjectId(this.project_id).then(o => {
-        o.subscribe((s: Array<Schedule>) => {
-          this.storage.set("sheduleId", JSON.stringify(s));
-          this.scheduleArray = s;
-        }, (error) => {
-          let errorJSON = error.error
-          let errorMessage = ""
-          Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-          this.presentAlert(errorMessage);
-        })
+      this.scheduleService.getSchedulesByProjectId(this.project_id).subscribe((s: Array<Schedule>) => {
+        this.storage.set("sheduleId", JSON.stringify(s));
+        this.scheduleArray = s;
+      }, (error) => {
+        let errorJSON = error.error
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+        this.presentAlert(errorMessage);
       })
+
     } else {
       this.storage.get("sheduleId").then((s) => {
         this.scheduleArray = JSON.parse(s);
@@ -53,10 +52,8 @@ export class CalendarPage implements OnInit {
   }
 
   deleteSchedule(idSchedule: number) {
-    this.scheduleService.deleteSchedule(idSchedule).then(o => {
-      o.subscribe(() => {
-        this.loadInfo();
-      });
+    this.scheduleService.deleteSchedule(idSchedule).subscribe(() => {
+      this.loadInfo();
     });
   }
 

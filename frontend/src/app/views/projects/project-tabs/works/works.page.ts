@@ -48,7 +48,6 @@ export class WorksPage implements OnInit {
         this.playlistArray = JSON.parse(s);
       })
     }
-
   }
 
   async presentAlert(message: string) {

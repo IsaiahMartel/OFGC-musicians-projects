@@ -7,7 +7,6 @@ import { ModalController } from '@ionic/angular';
 import { EventsOrWorksModal } from './reports/events-or-works-modal/events-or-works-modal.page';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { WebsocketService } from 'src/app/services/websocket/websocket.service';
 import { ActivatedRoute } from '@angular/router';
 import { Echo } from 'laravel-echo-ionic';
 
@@ -36,7 +35,6 @@ export class ProjectsPage implements AfterViewInit {
     private modalController: ModalController,
     private alertController: AlertController,
     public storage: Storage,
-    private webSocket: WebsocketService,
     private route: ActivatedRoute,
   ) { }
 
@@ -122,9 +120,7 @@ export class ProjectsPage implements AfterViewInit {
   }
 
   loadInfo() {
-  
-    
-    if (this.projectsArray.length ==0) {
+    if (this.projectsArray.length == 0) {
       this.updateData();
     }
 
@@ -138,23 +134,19 @@ export class ProjectsPage implements AfterViewInit {
 
 
   updateData() {
-    this.projectsService.getProjects().then(o => {
-      o.subscribe((p: Array<Projects>) => {
+    this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
 
-        //save storage
-        this.storage.set("projects", JSON.stringify(p));
+      this.storage.set("projects", JSON.stringify(p));
 
-        this.projectsArray = p.filter((project) => {
-          return project.published == true;
-        })
-      }, (error) => {
-        let errorJSON = error.error
-        let errorMessage = ""
-        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-        this.presentAlert(errorMessage);
+      this.projectsArray = p.filter((project) => {
+        return project.published == true;
       })
+    }, (error) => {
+      let errorJSON = error.error
+      let errorMessage = ""
+      Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+      this.presentAlert(errorMessage);
     })
-
   }
 
   async presentAlert(message: string) {

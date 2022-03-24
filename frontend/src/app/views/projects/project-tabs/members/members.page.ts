@@ -27,7 +27,7 @@ export class MembersPage implements OnInit {
     private alertController: AlertController,
     public storage: Storage
 
-    ) { }
+  ) { }
 
 
   ngOnInit(): void {
@@ -37,18 +37,17 @@ export class MembersPage implements OnInit {
   loadInfo() {
 
     if (navigator.onLine) {
-      this.directorProjectService.getDirectorProjectsByProjectId(this.project_id).then(o => {
-        o.subscribe((s: Array<DirectorProjects>) => {
-          this.storage.set("directorProject", JSON.stringify(s));
-          this.directorProjectArray = s;
+      this.directorProjectService.getDirectorProjectsByProjectId(this.project_id).subscribe((s: Array<DirectorProjects>) => {
+        this.storage.set("directorProject", JSON.stringify(s));
+        this.directorProjectArray = s;
 
-        }, (error) => {
-          let errorJSON = error.error
-          let errorMessage = ""
-          Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-          this.presentAlert(errorMessage);
-        })
+      }, (error) => {
+        let errorJSON = error.error
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+        this.presentAlert(errorMessage);
       })
+
 
       this.soloistProjectService.getSoloistProjectsByProjectId(this.project_id).then(o => {
         o.subscribe((s: Array<SoloistProjects>) => {
@@ -64,7 +63,7 @@ export class MembersPage implements OnInit {
 
 
 
-    } else{
+    } else {
       this.storage.get("directorProject").then((s) => {
         this.directorProjectArray = JSON.parse(s);
       })

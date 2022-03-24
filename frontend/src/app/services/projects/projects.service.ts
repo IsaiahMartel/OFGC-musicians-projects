@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { Projects } from '../../models/projects'
@@ -12,46 +12,18 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 })
 
 export class ProjectsService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${""}`
-    })
-  }
 
   endpoint: string = "http://localhost:8000/api/projects";
 
   constructor(
-    private httpClient: HttpClient, 
-    private storage: Storage, 
+    private httpClient: HttpClient,
+    private storage: Storage,
     private localStorageService: LocalStorageService
-    ) {
+  ) {
 
   }
 
-  async getHttpOptions() {
-    await this.localStorageService.getToken().then(o => {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${o}`
-        })
-      };
-      ;
-    });
-
-  }
-
-  async getProjects() {
-
-    await this.getHttpOptions();
-
-    return await this.httpClient.get<Projects[]>(this.endpoint, this.httpOptions);
-  }
-
-  getProjects1() {
-
-    
+  getProjects() {
 
     return this.httpClient.get<Projects[]>(this.endpoint);
   }

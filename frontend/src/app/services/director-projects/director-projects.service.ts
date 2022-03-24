@@ -11,12 +11,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 
 
 export class DirectorProjectsService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${""}`
-    })
-  }
+
 
   endpoint: string = "http://localhost:8000/api/director-projects";
 
@@ -24,21 +19,8 @@ export class DirectorProjectsService {
 
   }
 
-  async getHttpOptions() {
-    await this.localStorageService.getToken().then(o => {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${o}`
-        })
-      }
-    });
-  }
-
-
-  async getDirectorProjectsByProjectId(projectId) {
-    await this.getHttpOptions();
-    return await this.httpClient.get<DirectorProjects[]>(this.endpoint + "/projects/" + projectId, this.httpOptions)
+   getDirectorProjectsByProjectId(projectId) {
+    return this.httpClient.get<DirectorProjects[]>(this.endpoint + "/projects/" + projectId)
   }
 }
 

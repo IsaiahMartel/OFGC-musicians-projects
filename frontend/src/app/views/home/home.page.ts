@@ -6,7 +6,6 @@ import { ProjectsService } from '../../services/projects/projects.service';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -21,10 +20,10 @@ export class HomePage {
 
   constructor(
     private projectsService: ProjectsService,
-    private scheduleService: SchedulesService, 
+    private scheduleService: SchedulesService,
     private alertController: AlertController,
     public storage: Storage
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.loadInfo();
@@ -32,44 +31,41 @@ export class HomePage {
 
   loadInfo() {
 
-    if (navigator.onLine) {
+    // if (navigator.onLine) {
 
-    this.projectsService.getProjects().then(o => {
-      o.subscribe((p: Array<Projects>) => {
-        this.storage.set("project", JSON.stringify(p));
+    this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
+      this.storage.set("project", JSON.stringify(p));
 
-        this.projectsArray = p.filter((project) => {
-          project.published == true;
+      this.projectsArray = p.filter((project) => {
+        if (project.published == true) {
           this.projects_id.push(project.id);
-          this.getSchedules();
-        })
+        }
 
-      }, (error) => {
-        let errorJSON = error.error
-        let errorMessage = ""
-        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-
-
-
-        this.presentAlert(errorMessage);
       })
+      this.getSchedules();
+    }, (error) => {
+      let errorJSON = error.error
+      let errorMessage = ""
+      Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+
+      this.presentAlert(errorMessage);
     })
 
-  }else {
-    this.storage.get("project").then((s) => {
-      this.projectsArray = JSON.parse(s);
-    })
+
+    // } else {
+    //   this.storage.get("project").then((s) => {
+    //     this.projectsArray = JSON.parse(s);
+    //   })
   }
 
 
-  }
 
   getSchedules() {
     for (let i of this.projects_id) {
-      this.scheduleService.getSchedulesByProjectId(i).then(o => {
-        o.subscribe((s: Array<Schedule>) => {
-          this.scheduleArray = s;
-        });
+      this.scheduleService.getSchedulesByProjectId(i).subscribe((s: Array<Schedule>) => {
+        for (let j of s) {
+          this.scheduleArray.push(j);
+        }
       });
     }
   }

@@ -14,12 +14,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
   providedIn: 'root'
 })
 export class SoloistProjectsService {
-  httpOptions =  {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${""}`
-    })
-  }
+
 
   endpoint: string = "http://localhost:8000/api/soloist-projects";
 
@@ -27,23 +22,10 @@ export class SoloistProjectsService {
 
   }
 
-  async getHttpOptions(){
-   await this.localStorageService.getToken().then(o=>{
-      this.httpOptions =  {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${o}`
-      })
+  async getSoloistProjectsByProjectId(projectId) {
   
-    };
-   
-    ;});
-   
-  }
- async getSoloistProjectsByProjectId(projectId) {
-  await this.getHttpOptions();
-    return await this.httpClient.get<SoloistProjects[]>(this.endpoint + "/projects/" + projectId, this.httpOptions).pipe(
-      tap(_=> console.log("SoloistProject retrieved")),
+    return this.httpClient.get<SoloistProjects[]>(this.endpoint + "/projects/" + projectId).pipe(
+      tap(_ => console.log("SoloistProject retrieved")),
       catchError(this.handleError<SoloistProjects[]>("Get soloist project", []))
     );
   }
@@ -53,8 +35,7 @@ export class SoloistProjectsService {
       console.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
-}
+  }
 }
 
 
- 
