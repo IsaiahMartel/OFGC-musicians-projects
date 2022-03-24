@@ -22,7 +22,7 @@ export class SoloistProjectsService {
 
   }
 
-  async getSoloistProjectsByProjectId(projectId) {
+   getSoloistProjectsByProjectId(projectId) {
   
     return this.httpClient.get<SoloistProjects[]>(this.endpoint + "/projects/" + projectId).pipe(
       tap(_ => console.log("SoloistProject retrieved")),

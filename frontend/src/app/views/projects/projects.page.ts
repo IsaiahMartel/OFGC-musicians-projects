@@ -102,7 +102,6 @@ export class ProjectsPage implements AfterViewInit {
     }
   }
 
-
   async openModal() {
     const modal = await this.modalController.create({
       component: EventsOrWorksModal,
@@ -120,17 +119,19 @@ export class ProjectsPage implements AfterViewInit {
   }
 
   loadInfo() {
-    if (this.projectsArray.length == 0) {
-      this.updateData();
-    }
+    this.storage.get("projects").then(data => {
 
-    else {
-      this.storage.get("projects").then((p) => {
-        this.projectsArray = JSON.parse(p);
-      })
-    }
+      if (data) {
+          this.projectsArray = JSON.parse(data);
+      }
+
+      else {
+    
+        this.updateData();
+      }
+     
+    })
   }
-
 
 
   updateData() {
@@ -141,23 +142,7 @@ export class ProjectsPage implements AfterViewInit {
       this.projectsArray = p.filter((project) => {
         return project.published == true;
       })
-    }, (error) => {
-      let errorJSON = error.error
-      let errorMessage = ""
-      Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-      this.presentAlert(errorMessage);
     })
-  }
-
-  async presentAlert(message: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Error',
-      subHeader: message,
-      message: 'Inténtalo de nuevo.',
-      buttons: ['OK']
-    });
-    await alert.present();
   }
 
   async notification(message: string) {

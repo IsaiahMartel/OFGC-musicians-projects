@@ -5,6 +5,7 @@ import { Projects } from '../../models/projects';
 import { ProjectsService } from '../../services/projects/projects.service';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Echo } from 'laravel-echo-ionic';
 
 @Component({
   selector: 'app-home',
@@ -31,44 +32,32 @@ export class HomePage {
 
   loadInfo() {
 
-    // if (navigator.onLine) {
+    this.storage.get("schedulesHome").then(data => {
 
-    this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
-      this.storage.set("project", JSON.stringify(p));
+      if (data) {
 
-      this.projectsArray = p.filter((project) => {
-        if (project.published == true) {
-          this.projects_id.push(project.id);
-        }
+        this.scheduleArray = JSON.parse(data);
 
-      })
-      this.getSchedules();
-    }, (error) => {
-      let errorJSON = error.error
-      let errorMessage = ""
-      Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+      }
 
-      this.presentAlert(errorMessage);
+      else {
+        this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
+          this.storage.set("project", JSON.stringify(p));
+
+          this.projectsArray = p.filter((project) => {
+            if (project.published == true) {
+              this.projects_id.push(project.id);
+            }
+
+          })
+          this.updateData();
+        })
+
+      }
     })
-
-
-    // } else {
-    //   this.storage.get("project").then((s) => {
-    //     this.projectsArray = JSON.parse(s);
-    //   })
   }
 
 
-
-  getSchedules() {
-    for (let i of this.projects_id) {
-      this.scheduleService.getSchedulesByProjectId(i).subscribe((s: Array<Schedule>) => {
-        for (let j of s) {
-          this.scheduleArray.push(j);
-        }
-      });
-    }
-  }
 
   async presentAlert(message: string) {
     const alert = await this.alertController.create({
@@ -79,6 +68,49 @@ export class HomePage {
       buttons: ['OK']
     });
 
+    await alert.present();
+  }
+
+
+  doConnection() {
+    const echo = new Echo({
+      broadcaster: 'pusher',
+      key: 'local',
+      wsHost: 'localhost',
+      wsPort: 6001,
+      forceTLS: false,
+      disableStats: true
+    });
+
+    const channel = echo.channel('channel');
+    channel.listen('Alert', (data) => {
+      console.log(JSON.stringify(data));
+      this.notification(data);
+      this.updateData();
+    });
+  }
+
+  updateData() {
+
+    for (let i of this.projects_id) {
+      this.scheduleService.getSchedulesByProjectId(i).subscribe((s: Array<Schedule>) => {
+        for (let j of s) {
+          this.storage.set("schedulesHome", JSON.stringify(s));
+          this.scheduleArray.push(j);
+        }
+      });
+    }
+
+  }
+
+
+  async notification(message: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Se han realizado cambios',
+      message: message,
+      buttons: ['OK']
+    });
     await alert.present();
   }
 

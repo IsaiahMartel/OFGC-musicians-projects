@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { Playlists } from '../../../../models/playlists/playlists';
 import { PlaylistsService } from 'src/app/services/playlists/playlists.service';
 import { Storage } from '@ionic/storage';
+import { Echo } from 'laravel-echo-ionic';
 
 @Component({
   selector: 'app-works',
@@ -29,39 +30,57 @@ export class WorksPage implements OnInit {
   }
 
   loadInfo() {
-    if (navigator.onLine) {
+
+    this.storage.get("playlistProject").then(data => {
+      if (data) {
+
+        this.playlistArray = JSON.parse(data);
+
+
+      } else {
+
+        this.updateData();
+      }
+    })
+  }
+
+  doConnection() {
+      const echo = new Echo({
+        broadcaster: 'pusher',
+        key: 'local',
+        wsHost: 'localhost',
+        wsPort: 6001,
+        forceTLS: false,
+        disableStats: true
+      });
+
+      const channel = echo.channel('channel');
+      channel.listen('Alert', (data) => {
+        console.log(JSON.stringify(data));
+        this.notification(data);
+        this.updateData();
+      });
+    }
+
+  updateData() {
       this.playlistService.getPlaylistProjectsByProjectId(this.project_id).then(o => {
         o.subscribe((s: Array<Playlists>) => {
           this.storage.set("playlistProject", JSON.stringify(s));
           this.playlistArray = s;
-        }, (error) => {
-          let errorJSON = error.error
-          let errorMessage = ""
-          Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-
-          this.presentAlert(errorMessage);
-        })
-      })
-
-    } else {
-      this.storage.get("playlistProject").then((s) => {
-        this.playlistArray = JSON.parse(s);
+        }
+        )
       })
     }
-  }
 
-  async presentAlert(message: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Error',
-      subHeader: message,
-      message: 'Inténtalo de nuevo.',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
+  async notification(message: string) {
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Se han realizado cambios',
+        message: message,
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
 }
 
 
