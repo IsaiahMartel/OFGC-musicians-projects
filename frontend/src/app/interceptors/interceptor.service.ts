@@ -72,4 +72,5 @@ manageError(error: HttpErrorResponse) {
   this.presentAlert(errorMessage);
 
 }
+
 }

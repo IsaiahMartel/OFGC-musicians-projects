@@ -44,8 +44,8 @@ export class ProjectsPage implements AfterViewInit {
     });
   }
 
-  async ngAfterViewInit() {
-    await this.loadInfo();
+  ngAfterViewInit() {
+    this.loadInfo();
     this.holdBtnArray.changes
       .subscribe(() => this.holdBtnArray.forEach((holdBtn: ElementRef) => {
         if (holdBtn != null) {

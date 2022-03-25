@@ -6,6 +6,12 @@ import { ProjectsService } from '../../services/projects/projects.service';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Echo } from 'laravel-echo-ionic';
+import { PlaylistsService } from 'src/app/services/playlists/playlists.service';
+import { DirectorProjectsService } from 'src/app/services/director-projects/director-projects.service';
+import { SoloistProjects } from 'src/app/models/soloist-projects';
+import { SoloistProjectsService } from 'src/app/services/soloist/soloist-projects.service';
+import { Playlists } from 'src/app/models/playlists/playlists';
+import { DirectorProjects } from 'src/app/models/director-projects';
 
 @Component({
   selector: 'app-home',
@@ -18,12 +24,20 @@ export class HomePage {
   public projects: Projects;
   public scheduleArray: Schedule[] = [];
   public projectsArray: Projects[] = [];
+  public playlistArray: Array<Playlists> = [];
+  public directorProjectArray: Array<DirectorProjects> = [];
+  public soloistProjectArray: Array<SoloistProjects> = [];
 
   constructor(
     private projectsService: ProjectsService,
     private scheduleService: SchedulesService,
+    private playlistService: PlaylistsService,
+    private directorProjectService: DirectorProjectsService,
+    private soloistProjectService: SoloistProjectsService,
+
+
     private alertController: AlertController,
-    public storage: Storage
+    public storage: Storage,
   ) { }
 
   ngOnInit(): void {
@@ -99,10 +113,49 @@ export class HomePage {
           this.scheduleArray.push(j);
         }
       });
+
+      this.playlistService.getPlaylistProjectsByProjectId(i).then(o => {
+        o.subscribe((s: Array<Playlists>) => {
+          for (let j of s) {
+          this.storage.set("playlistProject", JSON.stringify(s));
+          this.playlistArray.push(j);
+     
+        }
+        }
+        )
+      })
+
+      this.directorProjectService.getDirectorProjectsByProjectId(i).subscribe((s: Array<DirectorProjects>) => {
+        for (let j of s) {
+        this.storage.set("directorProject", JSON.stringify(s));
+        this.directorProjectArray.push(j);
+      }
+      })
+
+      this.soloistProjectService.getSoloistProjectsByProjectId(i).subscribe((s: Array<SoloistProjects>) => {
+        for (let j of s) {
+        this.storage.set("soloistProject", JSON.stringify(s));
+        this.soloistProjectArray.push(j);
+
+      }
+      })
+
+      this.scheduleService.getSchedulesByProjectId(i).subscribe((s: Array<Schedule>) => {
+        for (let j of s) {
+        this.storage.set("scheduleProject", JSON.stringify(s));
+        this.scheduleArray.push(j);
+      }
+      })
     }
 
-  }
+    this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
+      this.storage.set("projects", JSON.stringify(p));
+      this.projectsArray = p.filter((project) => {
+        return project.published == true;
+      })
+    })
 
+  }
 
   async notification(message: string) {
     const alert = await this.alertController.create({

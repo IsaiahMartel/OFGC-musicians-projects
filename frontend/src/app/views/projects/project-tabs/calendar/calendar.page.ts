@@ -75,7 +75,6 @@ console.log(data);
       this.scheduleService.getSchedulesByProjectId(this.project_id).subscribe((s: Array<Schedule>) => {
         this.storage.set("scheduleProject", JSON.stringify(s));
         this.scheduleArray = s;
-        console.log(s);
         
       })
     }

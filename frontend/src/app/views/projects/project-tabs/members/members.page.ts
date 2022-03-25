@@ -83,8 +83,6 @@ export class MembersPage implements OnInit {
     this.soloistProjectService.getSoloistProjectsByProjectId(this.project_id).subscribe((s: Array<SoloistProjects>) => {
       this.storage.set("soloistProject", JSON.stringify(s));
       this.soloistProjectArray = s;
-      console.log(s
-        );
       
     })
 
