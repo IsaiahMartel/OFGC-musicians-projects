@@ -1,9 +1,15 @@
-<ion-header>
+<ion-header class="ion-no-border">
 
     <ion-toolbar id="navbar">
+        <!-- <div class="vl"></div> -->
+        <ion-buttons slot="start" routerLink="/home">
+
+            <ion-icon id="go-back-button" name="chevron-back-outline"></ion-icon>
+
+        </ion-buttons>
         <ion-menu-button id="home-menu-container">
-            <ion-icon id="go-back-button" name="arrow-back-outline" routerLink="/home"></ion-icon>
-            <div class="vl"></div>
+
+
             <ion-icon id="header-icon" src="assets/projects-color-icon.svg"></ion-icon>
             <h2 id="header-text">Proyectos</h2>
         </ion-menu-button>

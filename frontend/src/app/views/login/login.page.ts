@@ -78,7 +78,7 @@ export class LoginPage implements OnInit {
       let user: User = {
         id: null,
         email: socialUser.email,
-        password: null,
+        password: " ",
         name: null,
         isAdmin: null
       };

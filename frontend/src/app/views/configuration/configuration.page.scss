@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&family=Roboto&display=swap');
+ion-content {
+    --offset-bottom: auto!important;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 #navbar {
     border-width: 1px;
     border-color: rgb(110, 102, 102);
@@ -14,10 +25,10 @@
 }
 
 #header-icon {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 35px;
-    color: #464040;
+    font-size: 40px;
+    position: absolute;
+    // float: left !important;
+    right: 0px
 }
 
 #header-text {
@@ -25,4 +36,6 @@
     vertical-align: middle;
     font-size: 30px;
     color: #464040;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
 }

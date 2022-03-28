@@ -62,7 +62,7 @@ export class AuthService {
   login(user: User): Observable<AuthResponse> {
     this.username=user.email;
     
-    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/api/login-with-google`, user).pipe(
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/api/login`, user).pipe(
       tap(async (res: AuthResponse) => {
 
         if (res.access_token) {

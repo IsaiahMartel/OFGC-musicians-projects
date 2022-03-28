@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,700&display=swap');
 ion-content {
     --offset-bottom: auto!important;
     --overflow: hidden;
@@ -6,105 +7,88 @@ ion-content {
     &::-webkit-scrollbar {
         display: none;
     }
-    border-color: rgb(110,
-    102,
-    102);
-    border-style: solid;
-    border-width: 0px 1px 1px 1px;
+}
+
+ion-header {
+    border: none;
 }
 
 #navbar {
     border-width: 1px;
     border-color: rgb(110, 102, 102);
     border-style: solid;
-    height: 76px;
 }
 
 #navbar-icon {
-    display: inline-block;
-    vertical-align: middle;
     font-size: 50px;
+    position: absolute;
+    right: 0;
 }
 
 #navbar-text {
-    display: inline-block;
-    vertical-align: middle;
     font-size: 30px;
     color: #464040;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
 }
 
 #menu-icon {
     vertical-align: middle;
-    font-size: 40px;
+    font-size: 50px;
     color: #464040;
     position: absolute;
-    // float: left !important;
     left: 0;
+}
+
+#home-menu-container {
+    height: 60px;
 }
 
 #square {
     margin: 15px;
-    background-color: #FEFAFE;
-    box-shadow: 0 0 1px rgb(177, 2, 148);
-    padding-bottom: 30px;
-}
-
-ion-slide {
-    height: auto !important;
-    height: 100%;
-    box-shadow: 0 0 10px rgb(177, 2, 148);
-}
-
-ion-slides {
-    height: auto !important;
+    // background-color: #FEFAFE;
+    // box-shadow: 0 0 1px rgb(177, 2, 148);
+    // padding: 20px;
 }
 
 .performance-card {
-    margin: 0;
-    box-shadow: 0 0 1px rgb(177, 2, 148);
     border-width: 0px;
     border-color: rgb(110, 102, 102);
     border-style: solid;
-    max-height: 250px !important;
-    background-color: #b419cf17;
-    border-radius: 0;
-    width: 300px;
+    background-color: #ffb0f469;
+    // border-radius: 0;
+    width: 700px;
 }
 
 .essay-card {
-    margin: 0;
-    box-shadow: 0 0 1px rgb(248, 161, 0);
-    border-width: 0px;
-    border-color: rgb(110, 102, 104);
-    border-style: solid;
-    max-height: 250px !important;
-    background-color: #f8bf0438;
-    border-radius: 0;
-    min-width: 250px;
-    width: 300px;
-    float: left;
+    // // box-shadow: 0 0 1px rgb(248, 161, 0);
+    // border-width: 0px;
+    // border-color: rgb(110, 102, 104);
+    // border-style: solid;
+    background-color: #fcf0878a;
+    // border-radius: 0;
+    width: 700px;
 }
 
 .perfomance-icon {
     vertical-align: middle;
-    font-size: 2.5em;
-    margin-top: 20px;
+    font-size: 3em;
 }
 
 .essay-icon {
     vertical-align: middle;
     font-size: 3em;
-    margin-top: 15px;
 }
 
 .event-type-text {
     vertical-align: bottom;
     display: inline-block;
-    color: #464040;
+    color: #1b1818;
     font-size: 30px;
     margin-left: 15px;
     margin-top: 25px;
     font-family: 'Outfit', sans-serif;
+    font-weight: 200;
 }
 
 #essays-row {

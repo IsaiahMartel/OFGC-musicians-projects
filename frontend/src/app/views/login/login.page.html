@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="ion-no-border">
     <ion-toolbar id="navbar">
         <ion-icon id="header-icon" src="assets/login-icon.svg"></ion-icon>
         <h2 id="header-text">Iniciar sesión</h2>
@@ -12,8 +12,6 @@
                 <ion-item id="email-fields">
                     <ion-label class="label" position="floating" for="project_id">Email</ion-label>
                     <ion-row>
-                        <!-- <ion-icon class="musical-note-icon" src="assets/musical-note.svg"></ion-icon> -->
-                        <!-- <ion-icon id="email-icon" name="person-circle-outline"></ion-icon> -->
                         <ion-icon id="email-icon" name="person-outline"></ion-icon>
                         <ion-input name="email" type="email" placeholder="your@email.com" formControlName="email" required></ion-input>
 
@@ -39,33 +37,45 @@
                     <span slot="error" *ngIf="loginForm.controls['password'].errors?.maxlength">La contraseña no puede
                         tener más de 12 caracteres.</span>
                     <span slot="error" *ngIf="loginForm.controls['password'].errors?.pattern && loginForm.controls['password'].touched">La contraseña no es válida.</span>
-                </ion-item>
 
-                <!-- <ion-checkbox id="remember-me-checkbox" class="checkbox-square" mode="md">
+
+                    <!-- <ion-checkbox id="remember-me-checkbox" class="checkbox-square" mode="md">
             </ion-checkbox>
             <label for="remember-me-checkbox" id="remember-me-text">Recuérdame</label> -->
 
 
+                    <span slot="error" *ngIf="loginForm.controls['password'].errors?.pattern && loginForm.controls['password'].touched">La contraseña no es válida.</span>
+                </ion-item>
+
+
+                <!-- <ion-checkbox id="remember-me-checkbox" class="checkbox-square" mode="md">
+                </ion-checkbox>
+                <label for="remember-me-checkbox" id="remember-me-text">Recuérdame</label> -->
+
+
 
                 <h3 id="forgot-password-text">¿Olvidaste la contraseña?</h3>
-                <button type="submit" id="login-button" class="button" type="submit">ENTRAR</button>
-            </form>
 
+                <button type="submit" id="login-button" class="button" type="submit">ENTRAR</button>
+
+            </form>
+            <h3 id="are-you-not-registered-text">¿No te has registrado? <span id="register-text" routerLink="/register">Regístrate</span></h3>
             <div>
 
-                <h3 id="are-you-not-registered-text">¿No te has registrado? <u id="register-text" routerLink="/register">Regístrate</u></h3>
+
 
 
             </div>
-            <hr id="separation">
-            <ion-button id="login-google-button" expand="block" (click)="signInWithGoogle()">
-                <ion-icon name="logo-google" slot="start"></ion-icon>
-                Iniciar sesión con Google
-            </ion-button>
+
+
         </div>
 
 
-
+        <hr id="separation">
+        <ion-button id="login-google-button" color="light" expand="block" (click)="signInWithGoogle()">
+            <ion-icon name="logo-google" slot="start"></ion-icon>
+            Iniciar sesión con Google
+        </ion-button>
     </ion-grid>
 
 </ion-content>

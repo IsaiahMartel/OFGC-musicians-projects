@@ -1,4 +1,5 @@
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,700&display=swap');
     #navbar {
         border-width: 1px;
         border-color: rgb(110, 102, 102);
@@ -7,36 +8,36 @@
     }
     
     #header-icon {
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 55px;
-        color: #464040;
-        margin-bottom: 2px;
+        font-size: 50px;
+        position: absolute;
+        // float: left !important;
+        right: 0px
     }
     
     #go-back-button {
         vertical-align: middle;
-        font-size: 30px;
+        font-size: 40px;
         color: #464040;
         position: absolute;
         left: 0;
     }
     
     .vl {
-        border-left: 2px solid rgb(59, 57, 57);
-        height: 1000px;
+        border-left: 2px solid rgb(173, 173, 173);
+        height: 70px;
         position: absolute;
-        left: 10%;
-        top: 0;
+        left: 12%;
+        top: 5px;
         bottom: 0;
         padding: 0px !important;
     }
     
     #header-text {
-        display: inline-block;
-        vertical-align: middle;
         font-size: 30px;
-        color: var(--ion-color-dark);
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        // color: var(--ion-color-dark);
+        color: #464040;
     }
     
     ion-content {
@@ -46,9 +47,6 @@
         &::-webkit-scrollbar {
             display: none;
         }
-        border-width: 0px 1px 1px 1px;
-        border-color: var(--ion-color-dark);
-        border-style: solid;
     }
     
     ion-card {

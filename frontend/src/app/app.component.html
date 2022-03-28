@@ -3,12 +3,12 @@
         <ion-menu menuId="custom" side="start" menuId="custom" contentId="main" class="my-custom-menu">
             <ion-content>
                 <ion-list>
-                    <ion-item class="ion-no-padding" routerLink="/home">
-                        <ion-icon id="home-icon" src="assets/casa.svg"></ion-icon>
+                    <ion-item lines="none" class="ion-no-padding" routerLink="/home">
+                        <ion-icon id="home-icon" src="assets/home18.svg"></ion-icon>
                         <h2>Inicio</h2>
                     </ion-item>
 
-                    <ion-item class="ion-no-padding" routerLink="/projects" #holdBtn>
+                    <ion-item lines="none" class="ion-no-padding" routerLink="/projects" #holdBtn>
                         <ion-icon id="projects-icon" src="assets/projects-color-icon.svg"></ion-icon>
                         <h2 id="projects-text">Proyectos</h2>
                     </ion-item>
@@ -16,23 +16,24 @@
             </ion-content>
 
             <ion-footer class="bar-stable">
-                <ion-item class="ion-no-padding" id="login-item" routerLink="/configuration">
+                <ion-item lines="none" class="ion-no-padding" id="login-item" routerLink="/configuration">
                     <ion-icon id="configuration-icon" src="assets/configuration-icon.svg"></ion-icon>
                     <h2 id="configuration-text">Configuración</h2>
                 </ion-item>
 
-                <ion-item class="ion-no-padding" routerLink="/login">
-                    <ion-icon id="login-icon" src="assets/login-icon.svg"></ion-icon>
-                    <h2 id="configuration-text">Iniciar sesión</h2>
-                </ion-item>
+
                 <!-- <ion-item class="ion-no-padding" routerLink="/chat">
                     <ion-icon id="support-icon" name="construct"></ion-icon>
                     <h2 id="configuration-text">Soporte</h2>
                 </ion-item> -->
 
-                <ion-item class="ion-no-padding" routerLink="/chat-with-laravel">
-                    <ion-icon id="support-icon" src="assets/support.png"></ion-icon>
-                    <h2 id="configuration-text">Chat con laravel</h2>
+                <ion-item lines="none" class="ion-no-padding" routerLink="/chat-with-laravel">
+                    <ion-icon id="support-icon" src="assets/support.svg"></ion-icon>
+                    <h2 id="configuration-text">Soporte</h2>
+                </ion-item>
+                <ion-item lines="none" class="ion-no-padding" routerLink="/login">
+                    <ion-icon id="login-icon" src="assets/login-icon.svg"></ion-icon>
+                    <h2 id="configuration-text">Cerrar sesión</h2>
                 </ion-item>
             </ion-footer>
         </ion-menu>

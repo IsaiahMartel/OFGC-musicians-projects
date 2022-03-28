@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300&family=Roboto&display=swap');
 #navbar {
     border-width: 1px;
     border-color: rgb(110, 102, 102);
@@ -19,7 +20,9 @@
     display: inline-block;
     vertical-align: middle;
     font-size: 30px;
+    font-family: 'Outfit', sans-serif;
     color: var(--ion-color-dark);
+    font-weight: 700;
 }
 
 ion-content {
@@ -29,92 +32,92 @@ ion-content {
     &::-webkit-scrollbar {
         display: none;
     }
-    border-width: 0px 1px 1px 1px;
-    border-color:var(--ion-color-medium-shade);
-    border-style: solid;
-    background-color: #FEFAFE;
 }
 
 #square {
     margin-top: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
-    border-width: 1px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-width: 1.5px;
     border-color: var(--ion-color-dark);
     border-style: solid;
     background-color: var(--ion-color-primary-contrast);
-    padding: 10px;
-    padding-bottom: 30px;
-    border-radius: 4px;
+    padding-bottom: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    // border-radius: 2px;
 }
 
-h1,
-h2,
-h3 {
-    font-family: 'Outfit', sans-serif;
-}
-
+// h1,
+// h2,
+// h3 {
+//     font-family: 'Outfit', sans-serif;
+// }
 #email-icon {
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
 #password-icon {
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
 .label {
-    font-size: 1.5em;
-    margin-left: 40px;
+    text-align: center;
+    font-size: 1.8em;
     font-family: 'Outfit', sans-serif;
-    margin-bottom: 0px;
 }
 
-input {
-    border-right: none !important;
-    border-left: none !important;
-    margin-left: 10px;
-    height: 2.2em;
-    margin-top: 5px;
-    width: 230px;
+ion-input {
+    // border-right: none !important;
+    // border-left: none !important;
+    // margin-top: 20px;
+    // width: 100px;
+    // border-bottom: 1px solid black;
+    font-size: 1.5em;
+    text-align: center;
 }
 
-#password-fields {
-    // margin-top: 5%;
+#email-fields {
+    // width: 500px;
+    text-align: center;
 }
 
 #forgot-password-text {
     color: var(--ion-color-tertiary);
     display: block;
     text-align: center;
-    margin-top: 5px;
-    margin-bottom: 20px;
+    // margin-top: 20px;
+    font-size: 1.4em;
 }
 
 #login-button {
-    width: 40%;
-    height: 60px;
+    margin-top: 4%;
+    width: 90%;
+    height: 70px;
     margin-left: auto;
     margin-right: auto;
-    font-size: 1.5em;
+    font-size: 1.8em;
     display: block;
     border-width: 1px;
     border-color: black;
     border-style: solid;
     font-family: 'Outfit', sans-serif;
-    background-color: var(--ion-color-light);
-    box-shadow: 0 0 1px black;
-    border-radius: 4px;
-    // margin-bottom: 5%;
+    background-color: rgb(68, 61, 61);
+    // box-shadow: 0 0 1px black;
+    color: white;
+    margin-top: 25px;
+    border-radius: 10px;
 }
 
 #are-you-not-registered-text {
     text-align: center;
+    font-size: 1.5em;
 }
 
 #register-text {
     text-align: center;
     color: var(--ion-color-tertiary);
-    margin: 0;
+    font-size: 1.2em;
 }
 
 #register-text:hover {
@@ -122,14 +125,21 @@ input {
     text-decoration: underline;
 }
 
-#separation {
-    margin-top: 5%;
-    background-color: black;
-    margin-bottom: 8%;
-}
-
 #login-google-button {
     background: white !important;
     color: white;
-    height: 50px;
+    text-align: center;
+    display: block;
+    font-size: 1.5em;
+    border: 1px solid black;
+    border-radius: 6px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#separation {
+    margin-top: 5%;
+    margin-bottom: 8%;
+    width: 80%;
+    border: 1px solid black;
 }
