@@ -1,3 +1,5 @@
+import { Seasons } from "./seasons/seasons";
+
 export class Projects {
         id: number;
         nameProject: string;	
@@ -5,6 +7,8 @@ export class Projects {
         endDateProject: Date;	
         published: boolean;
         orchestrationProject: String;	
-        seasons_id: number;	
+        seasons_id: number;
+        
+        season: Seasons;
   
 }

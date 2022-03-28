@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Playlists;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Auth;
+use Mail;
 
 class PlaylistsController extends Controller
 {
@@ -46,6 +48,8 @@ class PlaylistsController extends Controller
         $playlist->composer_id=$request->composer_id;
     
         $playlist->save();
+
+        broadcast(new Alert("Se ha añadido obra(s)"));
     }
 
     /**
@@ -95,6 +99,8 @@ class PlaylistsController extends Controller
         
         $playlist->save();
 
+        broadcast(new Alert("Se ha actualizado obra(s)"));
+
         return $playlist;
     }
 
@@ -109,6 +115,8 @@ class PlaylistsController extends Controller
         
       
         $playlist = playlists::destroy($request->id);
+
+        broadcast(new Alert("Se ha borrado obra(s)"));
 
         return $playlist;
     }
@@ -131,9 +139,11 @@ return PDF::loadView('playlists', compact('playlist'))
 
 public function sendPDF(Request $request)
         {
+            $user = Auth::user();
+
             $playlist = Playlists::where('project_id', '=' ,$request->id)->with('works','composers','projects')->get();
 
-            $data["email"]=  Auth::user()->email;
+            $data["email"]= $user->email;
             $data["title"] = "From ItSolutionStuff.com";
             $data["body"] = "This is Demo";
             $pdf = PDF::loadView('playlists', compact('playlist'))->stream('playlists.pdf');

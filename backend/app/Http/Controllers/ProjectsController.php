@@ -7,6 +7,7 @@ use App\Models\Projects;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Mail;
+use App\Events\Alert;
 
 class ProjectsController extends Controller
 {
@@ -47,6 +48,9 @@ class ProjectsController extends Controller
         $project->seasons_id=$request->seasons_id;
         $project->orchestrationProject=$request->orchestrationProject;
         $project->save();
+
+        broadcast(new Alert("Se ha añadido un proyecto"));
+
     }
 
     /**
@@ -90,6 +94,8 @@ class ProjectsController extends Controller
         
         $project->save();
 
+        broadcast(new Alert("Se ha actualizado un proyecto"));
+
         return $project;
     }
 
@@ -104,6 +110,7 @@ class ProjectsController extends Controller
         
       
         $project = Projects::destroy($request->id);
+        broadcast(new Alert("Se ha borrado un proyecto"));
 
         return $project;
     }

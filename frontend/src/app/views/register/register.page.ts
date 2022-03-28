@@ -33,14 +33,11 @@ export class RegisterPage implements OnInit {
       ])],
       confirmPassword: ['', Validators.compose([
         Validators.required,
-        // Validators.minLength(6),
-        // Validators.maxLength(12),
       ])],
 
     }, {
       validators: this.checkIfPasswordMatch.bind(this)
     }
-      //{validator: RegisterPage.passwordsMatch}
     );
   }
 
@@ -65,19 +62,6 @@ export class RegisterPage implements OnInit {
     }
   }
 
-
-
-  // static passwordsMatch(cg: FormGroup): {[err: string]: any} {
-  //   let pwd1 = cg.get('pwd1');
-  //   let pwd2 = cg.get('pwd2');
-  //   let rv: {[error: string]: any} = {};
-  //   if ((pwd1.touched || pwd2.touched) && pwd1.value !== pwd2.value) {
-  //     rv['passwordMismatch'] = true;
-  //   }
-  //   return rv;
-  // }
-
-
   register() {
     console.log(this.registerForm.value.email);
     let user: User = {
@@ -93,10 +77,7 @@ export class RegisterPage implements OnInit {
     this.authService.register(user).subscribe(
       (res) => {
         console.log(res);
-        if (res.user) {
-
-          //  this.storage.set("token", res.access_token);
-        }
+        this.authService.login(user).subscribe();
         this.router.navigateByUrl('home');
         this.registerForm.reset();
       },

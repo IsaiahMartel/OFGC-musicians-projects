@@ -23,6 +23,8 @@ export class PdfService {
       'Authorization': `Bearer ${""}`
     })
   }
+
+  projectId: number;
   // const requestHeaders;
 
 
@@ -30,9 +32,11 @@ export class PdfService {
 
   sendProjects: string = "http://localhost:8000/api/projects/sendPDF";
   downloadProjects: string = "http://localhost:8000/api/projects/downloadPDF";
-
+  
   downloadEventsByIdProject: string = "http://localhost:8000/api/schedule/downloadPDF/";
   sendEventsByIdProject: string = "http://localhost:8000/api/schedule/sendPDF";
+
+  endpointSendWorks: string = "http://localhost:8000/api/playlists/sendPDF";
 
   constructor(private httpClient: HttpClient, private storage: Storage, private localStorageService: LocalStorageService) {
 
@@ -63,12 +67,10 @@ export class PdfService {
   }
 
   downloadAndOpenPdf() {
-    console.log("download and open")
-    console.log(this.category, " ", this.downloadOrSend)
     switch (this.category) {
 
       case 0:
-       
+
         this.getProjectsPDF();
 
         break;
@@ -78,11 +80,10 @@ export class PdfService {
   }
 
   sendPdfToEmail() {
-    console.log("email")
-    console.log(this.category)
     switch (this.category) {
       case 0:
-        
+
+
         this.sendProjectsPDF().then(o => {
           o.subscribe()
 
@@ -90,10 +91,17 @@ export class PdfService {
         });
         break;
       case 1:
-        console.log("opcion 2 email");
+        this.sendEventsPDF(this.projectId).then(o => {
+          o.subscribe()
+        });
+          break;
+    case 2:
+      this.sendWokrsPDF(this.projectId).then(o => {
+        o.subscribe()
+      });
         break;
-    }
 
+  }
   }
 
 
@@ -104,6 +112,8 @@ export class PdfService {
     return await this.httpClient.get(this.sendProjects, this.httpOptions);
   }
   async getProjectsPDF() {
+
+// window.open("http://localhost:8000/api/projects/downloadPDF");
 
     // await console.log(this.httpClient.get(this.downloadProjects))
     // return await this.httpClient.get(this.downloadProjects, httpOptions);
@@ -127,10 +137,15 @@ export class PdfService {
 
   async sendEventsPDF(projectId) {
     await this.getHttpOptions();
-
-    return await this.httpClient.get(this.sendEventsByIdProject + projectId, this.httpOptions);
+    
+    return await this.httpClient.get(this.sendEventsByIdProject  + "/"+projectId, this.httpOptions);
   }
 
+  async sendWokrsPDF(projectId) {
+    await this.getHttpOptions();
+
+    return await this.httpClient.get(this.endpointSendWorks  + "/"+ projectId, this.httpOptions);
+  }
 
 
 

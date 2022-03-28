@@ -1,15 +1,10 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { LocalStorageService } from './services/local-storage/local-storage.service';
-import { ProjectsService } from './services/projects.service';
 import { GestureController, MenuController } from '@ionic/angular';
 import { PdfService } from 'src/app/services/pdf/pdf.service';
-import { Browser } from '@capacitor/browser';
-import { IonRouterOutlet } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { HomePage } from './views/home/home.page';
-import { PDFModalMenuPage } from './views/PDF-modal-menu/projects-pdf-menu/pdf-modal-menu.page';
+import { DownloadOrSendModal } from './views/projects/reports/download-or-send-modal/download-or-send-modal.page';
 import { Router } from '@angular/router';
-import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -25,17 +20,15 @@ export class AppComponent implements AfterViewInit {
 
   private modalOpen: boolean = false;
 
-  constructor( private router: Router, private gestureCtrl: GestureController, private localStorageService: LocalStorageService, private pdfService: PdfService, private modalController: ModalController) { }
+  constructor(private router: Router, private gestureCtrl: GestureController,
+    private localStorageService: LocalStorageService, private pdfService: PdfService,
+    private modalController: ModalController) { }
 
   ngOnInit() {
 
   }
 
-
   ngAfterViewInit() {
-   
-
-
     const longPress = this.gestureCtrl.create({
       el: this.holdBtn.nativeElement,
       threshold: 0,
@@ -49,9 +42,8 @@ export class AppComponent implements AfterViewInit {
         this.longPressActive = false;
 
       }
-    }, true); // Passing true will run the gesture callback inside of NgZone!
+    }, true);
 
-    // Don't forget to enable!
     longPress.enable(true);
 
   }
@@ -72,23 +64,9 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  // async openModal() {
-  //   console.log("ey")
-  //   const modal = await this.modalController.create({
-  //     component: PDFModalMenuPage,
-  //     cssClass: 'my-custom-class',
-  //     swipeToClose: true,
-  //     presentingElement: await this.modalController.getTop(),
-
-  //   });
-  //   return await modal.present();
-  // }
-
   async openModal() {
-
-
     const modal = await this.modalController.create({
-      component: PDFModalMenuPage,
+      component: DownloadOrSendModal,
       handle: false,
       initialBreakpoint: 0.16,
       breakpoints: [0, 0.16],
@@ -99,16 +77,7 @@ export class AppComponent implements AfterViewInit {
     if (!this.modalOpen) {
       this.modalOpen = true;
 
-
-
       return await modal.present();
-
-
     }
-
-
-    //  await modal.onWillDismiss().then((o) => { console.log(o) })
   }
-
-
 }

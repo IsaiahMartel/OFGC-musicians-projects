@@ -9,25 +9,8 @@ const routes: Routes = [
  
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
-  },
-  // {
-  //   path: 'calendar/:id',
-  //   loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
-  // },
-  {
-    path: 'tests',
-    loadChildren: () => import('./tests/tests.module').then( m => m.TestsPageModule)
-  },
-  
-  {
-    path: 'create',
-    loadChildren: () => import('./views/create/create.module').then( m => m.CreatePageModule)
-  },
-  {
-    path: 'update/:id',
-    loadChildren: () => import('./views/update/update.module').then( m => m.UpdatePageModule)
   },
   {
     path: 'projects',
@@ -39,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./views/tabs/tabs.module').then( m => m.TabsPageModule)
+    loadChildren: () => import('./views/projects/project-tabs/tabs.module').then( m => m.TabsPageModule)
   },
   {
     path: 'configuration',
@@ -50,26 +33,26 @@ const routes: Routes = [
     loadChildren: () => import('./views/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'pdf-modal-menu',
-    loadChildren: () => import('./views/PDF-modal-menu/projects-pdf-menu/pdf-modal-menu.module').then( m => m.PDFModalMenuPageModule)
+    path: 'download-or-send-modal',
+    loadChildren: () => import('./views/projects/reports/download-or-send-modal/download-or-send-modal.module').then( m => m.DownloadOrSendModalModule)
   },
   {
-    path: 'pdf-project-modal',
-    loadChildren: () => import('./views/pdf-project-modal/pdf-project-modal/pdf-project-modal.module').then( m => m.PdfProjectModalPageModule)
+    path: 'events-or-works-modal',
+    loadChildren: () => import('./views/projects/reports/events-or-works-modal/events-or-works-modal.module').then( m => m.EventsOrWorksModalModule)
+  },
+
+  {
+    path: 'chat',
+    loadChildren: () => import('../app/views/chat/chat.module').then( m => m.ChatPageModule)
   },
   {
-    path: 'send-single-project-pdf',
-    loadChildren: () => import('./views/PdfModals/sendSingleProjectPdf/send-single-project-pdf/send-single-project-pdf.module').then( m => m.SendSingleProjectPdfPageModule)
+    path: 'chat-with-laravel',
+    loadChildren: () => import('./views/chat-with-laravel/chat-with-laravel.module').then( m => m.ChatWithLaravelPageModule)
   },
   {
-    path: 'download-single-project-pdf',
-    loadChildren: () => import('./views/PdfModals/downloadSingleProjectPdf/download-single-project-pdf/download-single-project-pdf.module').then( m => m.DownloadSingleProjectPdfPageModule)
+    path: 'sqlite-view',
+    loadChildren: () => import('./views/sqlite-view/sqlite-view.module').then( m => m.SqliteViewPageModule)
   },
-
-
-
-
-
 ];
 
 @NgModule({

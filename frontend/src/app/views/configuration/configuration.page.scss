@@ -1,29 +1,28 @@
-#navbar{
+#navbar {
     border-width: 1px;
     border-color: rgb(110, 102, 102);
     border-style: solid;
     height: 76px;
-  }
-  
-  
-  
-  
-  #header-icon{
+}
+
+#go-back-button {
+    vertical-align: middle;
+    font-size: 40px;
+    color: #464040;
+    position: absolute;
+    left: 0;
+}
+
+#header-icon {
     display: inline-block;
     vertical-align: middle;
     font-size: 35px;
     color: #464040;
-  
+}
 
-   }
-  
-  
-  
-  #header-text{
+#header-text {
     display: inline-block;
     vertical-align: middle;
     font-size: 30px;
-  color: #464040;
-    //  font-family: 'Outfit', sans-serif;
-     
-   }
+    color: #464040;
+}

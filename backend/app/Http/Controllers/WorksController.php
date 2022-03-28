@@ -44,6 +44,7 @@ class WorksController extends Controller
         $work->orchestrationWork=$request->orchestrationWork;
         $work->stringWork=$request->stringWork;
         
+
         $work->save();
     }
 

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MenuController } from '@ionic/angular';
 import { User } from 'src/app/models/user/user';
-import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
-import { Validators, FormControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {  MenuController } from '@ionic/angular';
+import { SocialAuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-login',
@@ -15,29 +14,31 @@ import {  MenuController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
+  user = null;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private alertController: AlertController,
-    private formBuilder: FormBuilder) { }
-    public menuCtrl: MenuController
-
-  ngOnInit() {
- 
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')])],
-    },
-
-    );
+    private formBuilder: FormBuilder,
+    private authServiceSocial: SocialAuthService,
 
 
+  ) {
 
   }
+  public menuCtrl: MenuController
 
+  ngOnInit() {
 
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6), 
+        Validators.maxLength(12), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')])],
+    },
+    );
 
+  }
 
   login() {
     let user: User = {
@@ -57,17 +58,45 @@ export class LoginPage implements OnInit {
       this.router.navigateByUrl('/home');
 
       this.loginForm.reset();
+    },
+      (error) => {
+        let errorJSON = JSON.parse(error.error)
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+        console.log(errorMessage);
 
-    }, 
-    (error) => {
-      let errorJSON = JSON.parse(error.error)
-      let errorMessage = ""
-      Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
-      console.log(errorMessage);
+        this.presentAlert(errorMessage);
+      });
+  }
 
-      this.presentAlert(errorMessage);
-    });
-    
+
+  signInWithGoogle(): void {
+
+    this.authServiceSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then(res => {
+      let socialUser: SocialUser = res;
+
+      let user: User = {
+        id: null,
+        email: socialUser.email,
+        password: null,
+        name: null,
+        isAdmin: null
+      };
+
+      this.authService.registerWithGoogle(user).subscribe();
+
+      this.authService.loginWithGoogle(user).subscribe((res) => {
+        this.router.navigateByUrl('home');
+      });
+    }),
+      (error) => {
+        let errorJSON = JSON.parse(error.error)
+        let errorMessage = ""
+        Object.values(errorJSON).forEach(element => errorMessage += element + "\n");
+        console.log(errorMessage);
+
+        this.presentAlert(errorMessage);
+      };
   }
 
   async presentAlert(message: string) {

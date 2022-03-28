@@ -41,6 +41,7 @@ class SoloistProjectsController extends Controller
         $soloistProject-> soloist_id = $request-> soloist_id;
         
         $soloistProject->save();
+        broadcast(new Alert("Un solista se ha unido al proyecto"));
     }
 
     /**
@@ -101,6 +102,8 @@ class SoloistProjectsController extends Controller
         
       
         $soloistProject = SoloistProjects::destroy($request->id);
+
+        broadcast(new Alert("Un solista ha salido del proyecto"));
 
         return $soloistProject;
     }

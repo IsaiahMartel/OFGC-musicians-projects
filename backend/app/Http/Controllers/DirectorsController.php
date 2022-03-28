@@ -42,6 +42,8 @@ class DirectorsController extends Controller
             $director->titleDirector= $request->titleDirector;
     
             $director->save();
+
+           
         }
     
         /**
@@ -95,7 +97,9 @@ class DirectorsController extends Controller
             
           
             $director = Directors::destroy($request->id);
-    
+
+     
+
             return $director;
         }
 
