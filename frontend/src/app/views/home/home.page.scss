@@ -17,6 +17,7 @@ ion-header {
     border-width: 1px;
     border-color: rgb(110, 102, 102);
     border-style: solid;
+    height: 76px;
 }
 
 #navbar-icon {
@@ -52,7 +53,7 @@ ion-header {
 }
 
 .performance-card {
-    border-width: 0px;
+    border-width: 1px;
     border-color: rgb(110, 102, 102);
     border-style: solid;
     background-color: #ffb0f469;
@@ -61,10 +62,10 @@ ion-header {
 }
 
 .essay-card {
+    border-width: 1px;
+    border-color: rgb(110, 102, 102);
+    border-style: solid;
     // // box-shadow: 0 0 1px rgb(248, 161, 0);
-    // border-width: 0px;
-    // border-color: rgb(110, 102, 104);
-    // border-style: solid;
     background-color: #fcf0878a;
     // border-radius: 0;
     width: 700px;

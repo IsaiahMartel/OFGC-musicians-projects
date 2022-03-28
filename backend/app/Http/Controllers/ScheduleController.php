@@ -7,6 +7,7 @@ use App\Models\Schedules;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Mail;
+use App\Events\Alert;
 
 class ScheduleController extends Controller
 {

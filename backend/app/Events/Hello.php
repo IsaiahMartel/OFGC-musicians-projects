@@ -23,12 +23,13 @@ class Hello implements ShouldBroadcast
      */
     public function __construct($request)
     {
-
+        error_log("XD");
+      
         $this->message = $request->all();
     }
 
     public function broadcastWith(){
-
+       
         return $this->message;
     }
 

@@ -45,14 +45,8 @@ ion-content {
     padding-bottom: 50px;
     padding-left: 30px;
     padding-right: 30px;
-    // border-radius: 2px;
 }
 
-// h1,
-// h2,
-// h3 {
-//     font-family: 'Outfit', sans-serif;
-// }
 #email-icon {
     font-size: 2em;
 }
@@ -68,11 +62,6 @@ ion-content {
 }
 
 ion-input {
-    // border-right: none !important;
-    // border-left: none !important;
-    // margin-top: 20px;
-    // width: 100px;
-    // border-bottom: 1px solid black;
     font-size: 1.5em;
     text-align: center;
 }
@@ -130,11 +119,12 @@ ion-input {
     color: white;
     text-align: center;
     display: block;
-    font-size: 1.5em;
+    font-size: 1em;
     border: 1px solid black;
     border-radius: 6px;
     margin-left: 20px;
     margin-right: 20px;
+    height: 50px;
 }
 
 #separation {

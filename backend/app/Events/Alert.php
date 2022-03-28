@@ -30,7 +30,7 @@ class Alert implements ShouldBroadcast
     }
 
     public function broadcastWith(){
-
+ 
         return $this->message;
         // return ['hello'];
     }

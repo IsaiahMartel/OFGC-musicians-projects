@@ -10,15 +10,18 @@
 #header-icon {
     display: inline-block;
     vertical-align: middle;
-    // font-size: 45px;
+    font-size: 45px;
     color: #464040;
+    margin-bottom: 2px;
 }
 
 #header-text {
+    display: inline-block;
+    vertical-align: middle;
     font-size: 30px;
-    color: #464040;
     font-family: 'Outfit', sans-serif;
-    font-weight: 500;
+    color: var(--ion-color-dark);
+    font-weight: 700;
 }
 
 #go-back-button {

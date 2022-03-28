@@ -132,11 +132,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:100|unique:users',
-<<<<<<< HEAD
-            'password' => '',
-=======
             'password' => ''
->>>>>>> origin/cleaning-code-and-appearance
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(),400);

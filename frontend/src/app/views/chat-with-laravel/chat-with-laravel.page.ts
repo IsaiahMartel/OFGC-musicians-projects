@@ -38,8 +38,6 @@ export class ChatWithLaravelPage implements OnInit {
       console.log("algo llegó")
       console.log(this.nickname, " ", JSON.stringify(data));
       this.messages.push(data);
-      console.log("a");
-
     });
   }
 
@@ -48,7 +46,6 @@ export class ChatWithLaravelPage implements OnInit {
 
     this.webSocket.sendBroadcastChat({ from: this.nickname, text: this.message }).subscribe(() => {
       this.message = '';
-      console.log("message sent");
     });
 
   }
