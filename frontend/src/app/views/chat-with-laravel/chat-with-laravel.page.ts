@@ -33,6 +33,9 @@ export class ChatWithLaravelPage implements OnInit {
       disableStats: true
     });
 
+    console.log("xd");
+    
+
     const channel = echo.channel('channel');
     channel.listen('Hello', (data) => {
       console.log("algo llegó")

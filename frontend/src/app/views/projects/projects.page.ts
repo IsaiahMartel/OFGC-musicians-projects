@@ -90,7 +90,6 @@ export class ProjectsPage implements AfterViewInit {
     setTimeout(() => {
       if (this.longPressActive) {
         this.hold++;
-
         this.increase(timeout);
 
       }

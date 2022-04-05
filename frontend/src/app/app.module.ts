@@ -6,12 +6,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule } from './services/auth/auth.module';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialAuthService, SocialLoginModule } from 'angularx-social-login';
 import { InterceptorService } from './interceptors/interceptor.service';
 
 
-const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
+
 
 @NgModule({
   declarations: [AppComponent,],
@@ -19,7 +19,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
   imports: [HammerModule, BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule, HttpClientModule, AuthModule,
-    SocketIoModule.forRoot(config), SocialLoginModule],
+     SocialLoginModule],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptorService,
