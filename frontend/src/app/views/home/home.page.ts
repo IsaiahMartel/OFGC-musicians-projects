@@ -55,6 +55,16 @@ export class HomePage {
 
   ngOnInit(): void {
     this.loadInfo();
+    this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
+      this.storage.set("projects", JSON.stringify(p));
+
+      this.projectsArray = p.filter((project) => {
+        if (project.published == true) {
+          this.projects_id.push(project.id);
+        }
+
+      })
+    })
     this.updateData();
 
   }
@@ -71,22 +81,23 @@ export class HomePage {
   createEvents() {
     var events = [];
     console.log(this.scheduleArray);
-    for(let p of this.scheduleArray){
+    for (let p of this.scheduleArray) {
       console.log(p);
-      
-    var startDate = new Date(p.date); 
-    var hourRange = p.hourRange
-    console.log(p.hourRange);
-    
-    var title = p.note;
+
+      var startDate = new Date(p.date);
+      var hourRange = p.hourRange
+      console.log(p.hourRange);
+
+      var title = p.note;
 
 
-    events.push({
-      title: title,
-      startTime: startDate,
+      events.push({
+        title: title,
+        startTime: startDate,
 
-  allDay: true
-    });}
+        allDay: true
+      });
+    }
 
     this.eventSource = events;
 
@@ -188,11 +199,11 @@ export class HomePage {
     }
 
     this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
-      this.storage.set("projects", JSON.stringify(p));
+      this.storage.set("schedules", JSON.stringify(p));
       this.projectsArray = p.filter((project) => {
         return project.published == true;
       })
-       this.createEvents();
+      this.createEvents();
     })
 
   }
