@@ -14,10 +14,10 @@ use App\Events\Alert;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group([
-    'middleware' => ['auth', 'cors'],
+// Route::group([
+//     'middleware' => ['auth', 'cors'],
 
-], function ($router) {
+// ], function ($router) {
 Route::get('/seasons','App\Http\Controllers\SeasonsController@index');
 Route::post('/seasons','App\Http\Controllers\SeasonsController@store');
 Route::put('/seasons/{id}','App\Http\Controllers\SeasonsController@update');
@@ -98,7 +98,7 @@ Route::get('/projects/sendPDF','App\Http\Controllers\ProjectsController@sendPDF'
     Route::get('/downloadDirectorsPDF', 'App\Http\Controllers\DirectorsController@downloadPDF');
     
     
-    Route::get('/schedule/sendPDF/{id}', 'App\Http\Controllers\ScheduleController@sendPDF');});
+    Route::get('/schedule/sendPDF/{id}', 'App\Http\Controllers\ScheduleController@sendPDF');
     Route::get('/schedule/downloadPDF/{id}', 'App\Http\Controllers\ScheduleController@downloadPDF');
     Route::get('/playlists/downloadPDF/{id}','App\Http\Controllers\PlaylistsController@downloadPDF');
     Route::get('/projects/downloadPDF','App\Http\Controllers\ProjectsController@downloadPDF');

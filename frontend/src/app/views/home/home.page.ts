@@ -13,6 +13,7 @@ import { SoloistProjectsService } from 'src/app/services/soloist/soloist-project
 import { Playlists } from 'src/app/models/playlists/playlists';
 import { DirectorProjects } from 'src/app/models/director-projects';
 import { CalendarComponent } from 'ionic2-calendar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -34,11 +35,14 @@ export class HomePage {
   calendar = {
     mode: 'month',
     currentDate: new Date(),
+    // noEventsLabel: "No hay eventos"
+    noEventsLabel: "No hay eventos"
   };
 
   selectedDate: Date;
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
+ 
 
   constructor(
     private projectsService: ProjectsService,
@@ -47,6 +51,8 @@ export class HomePage {
     private directorProjectService: DirectorProjectsService,
     private soloistProjectService: SoloistProjectsService,
 
+    private router: Router,
+
 
     private alertController: AlertController,
     public storage: Storage,
@@ -54,9 +60,12 @@ export class HomePage {
   ) { }
 
   ngOnInit(): void {
-    this.loadInfo();
+
+    
+   
+
     this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
-      this.storage.set("projects", JSON.stringify(p));
+
 
       this.projectsArray = p.filter((project) => {
         if (project.published == true) {
@@ -64,8 +73,10 @@ export class HomePage {
         }
 
       })
+      this.loadInfo();
     })
-    this.updateData();
+
+
 
   }
 
@@ -80,26 +91,34 @@ export class HomePage {
 
   createEvents() {
     var events = [];
-    console.log(this.scheduleArray);
-    for (let p of this.scheduleArray) {
-      console.log(p);
+    // console.log(this.projectsArray);
 
-      var startDate = new Date(p.date);
-      var hourRange = p.hourRange
-      console.log(p.hourRange);
+    for (let p of this.projectsArray) {
+      // console.log(p);
 
-      var title = p.note;
+      var startDate = new Date(p.startDateProject);
+      var endDate = new Date(p.endDateProject);
 
+      var title = p.nameProject;
+      var projectId = p.id;
 
       events.push({
         title: title,
         startTime: startDate,
-
-        allDay: true
+        endTime: endDate,
+        projectId: projectId,
       });
     }
 
+
+
+
+
     this.eventSource = events;
+    console.log(this.eventSource);
+    
+
+
 
 
   }
@@ -157,12 +176,12 @@ export class HomePage {
 
   updateData() {
     for (let i of this.projects_id) {
-      this.scheduleService.getSchedulesByProjectId(i).subscribe((s: Array<Schedule>) => {
-        for (let j of s) {
-          this.storage.set("schedulesHome", JSON.stringify(s));
-          this.scheduleArray.push(j);
-        }
-      });
+      // this.scheduleService.getSchedulesByProjectId(i).subscribe((s: Array<Schedule>) => {
+      //   for (let j of s) {
+      //     this.storage.set("schedulesHome", JSON.stringify(s));
+      //     this.scheduleArray.push(j);
+      //   }
+      // });
 
       this.playlistService.getPlaylistProjectsByProjectId(i).then(o => {
         o.subscribe((s: Array<Playlists>) => {
@@ -194,16 +213,19 @@ export class HomePage {
         for (let j of s) {
           this.storage.set("scheduleProject", JSON.stringify(s));
           this.scheduleArray.push(j);
+
+
         }
+        // this.createEvents();
       })
     }
 
     this.projectsService.getProjects().subscribe((p: Array<Projects>) => {
-      this.storage.set("schedules", JSON.stringify(p));
+      this.storage.set("projects", JSON.stringify(p));
       this.projectsArray = p.filter((project) => {
         return project.published == true;
       })
-      this.createEvents();
+
     })
 
   }
@@ -217,5 +239,54 @@ export class HomePage {
     });
     await alert.present();
   }
+  // updateCalendar() {
+  //   const cells = document.getElementsByClassName("swiper-container-initialized");
+  //   const slider = document.getElementsByClassName('event-detail-container');
+  //   const slides = slider[0].getElementsByClassName('item')
+  //   // console.log(slider[0])
+  //   // console.log(cells);
 
+
+
+  //   // for (let i = 0; i < cells.length; i++) {
+  //   const cell = cells[0] as HTMLElement;
+
+  //   // console.log(cell);
+
+
+  //   cell.addEventListener('click', function handleClick() {
+  //     console.log("ha hecho click");
+
+
+  //     for (let i = 0; i < slides.length; i++) {
+  //       // console.log(slides);
+
+  //       // setTimeout(function () {
+  //       const slide = slides[i] as HTMLElement;
+
+
+  //       slide.setAttribute("href", "/tabs/calendar/")
+  //       // }, 2000);
+
+
+
+
+  //     };
+  //   });
+
+  //   // };
+
+  //   // console.log(slides[0].getElementsByClassName('item'));
+
+  // }
+
+  onEventSelected = (event) => {
+   this.router.navigateByUrl("/tabs/calendar/" + event.projectId);
+   
+  };
+
+
+  
 }
+
+
